@@ -160,17 +160,167 @@ cd ~/scHAMR
 ulimit -n
 ulimit -n 9999
 mkdir splitted_bams
+
+# spliting the generated bam file to a file for each individual cell based on the cell barcodes tag using bamtools.
+cd splitted_bams
+cp ~/scHAMR/filtered_bam/filtered_bam ~/scHAMR /splitted_bams/
+bamtools split -in filtered_bam -tag CB:Z
+cd ~/scHAMR
 ```
 
 ### 4.2. Clustering
 
+``` bash
+# directory for all clustering analyses
+mkdir clustering
+cd clustering
+```
+
 ### Option 1: Seurat in R
 
-```R
-# R commands for clustering using Seurat
-library(Seurat)
-# ... additional commands for clustering and visualization
+``` bash
+# directory for all Seurat analyses
+mkdir Seurat
+cd Seurat
+# directory per each Seurat analysis 
+mkdir qc_check
+mkdir features_selection
+mkdir PCA
+mkdir clusters
+mkdir biomarkers
 ```
+
+Run R environment in terminal
+
+``` bash
+R
+```
+
+R commands for clustering using Seurat
+
+1. Importing libraries and data count matrix
+
+```R
+#####  ######
+
+# importing important libraries
+library(dplyr)
+library(Seurat)
+library(patchwork)
+library("Matrix")
+library("readr")
+
+# importing the data or count matrix (use 'ReadMtx'for bundle formate matrix
+# or 'Read10X' for tubler formate matrix by 10X, or ReadSTARsolo for star, or manually)
+
+Mido.data <- ReadSTARsolo(data.dir ="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/")
+
+# or:
+# Mido.data <- readMM("~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/matrix.mtx")
+# rownames(Mido.data) <- read_tsv("~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/features.tsv", col_names=FALSE)[, 1, drop=TRUE]
+# colnames(Mido.data) <- read_tsv("~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv", col_names=FALSE)[, 1, drop=TRUE]
+
+# or:
+# Mido.data <- ReadMtx(mtx ="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/matrix.mtx", cells="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv", features="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/features.tsv")
+
+# setting up a Seurat object and displaying it
+Mido <- CreateSeuratObject(counts = Mido.data, project = "Mido", min.cells = 3, min.features = 200)
+
+Mido
+```
+
+2. Quality Control
+
+```R
+## Quality Control and cells selection
+
+# percent of mitrochondrial genes
+Mido[["percent.mt"]] <- PercentageFeatureSet(Mido, pattern = "^MT-")
+
+# Violin plot for QC metrics
+png("~/scHAMR/Seurat/qc_check/pre-qc_vlnplot.png", width = 800, height = 600, pointsize = 12)
+VlnPlot(Mido, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+dev.off()
+
+# scatter plots for features
+png("~/scHAMR/Seurat/qc_check/pre-qc_scatter.png", width = 800, height = 400, pointsize = 12)
+plot1 <- FeatureScatter(Mido, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(Mido, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+dev.off()
+
+# choosing cells with high quality (here, has more than 200 but less than 2500 reads and less than 5% mt genes)
+Mido <- subset(Mido, subset= nFeature_RNA>200 & nFeature_RNA<2500 & percent.mt<5)
+
+# rechecking Q
+png("~/scHAMR/Seurat/qc_check/post-qc_vlnplot.png", width = 800, height = 600, pointsize = 12)
+VlnPlot(Mido, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+dev.off()
+		
+png("~/scHAMR/Seurat/qc_check/post-qc_scatter.png", width=800, height=400, pointsize= 12)
+plot1 <- FeatureScatter(Mido, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(Mido, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1 + plot2
+dev.off()	
+```
+
+3. Preprocessing
+
+```R
+# Normalizing
+Mido <- NormalizeData(Mido, normalization.method = "LogNormalize", scale.factor = 10000
+
+
+# Features selection (select genes of high variability)
+# 2000 genes of highest variability are selected
+Mido <- FindVariableFeatures(Mido, selection.method = "vst", nfeatures = 2000)
+# these are the top 10 of them to show in the plot below
+top10 <- head(VariableFeatures(Mido), 10)
+# plot the variable features
+png("~/scHAMR/Seurat/features_selection/variable_features.png", width = 800, height = 400, pointsize = 12)
+plot1 <- VariableFeaturePlot(Mido)
+plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
+plot1 + plot2
+dev.off()
+
+# Linear Transformation (Scaling)
+all.genes <- rownames(Mido)
+Mido <- ScaleData(Mido, features = all.genes)
+```
+
+4. Linear Dimensional Reduction with PCA
+
+```R
+# Calulcating PCA
+Mido <- RunPCA(Mido, features = VariableFeatures(object = Mido))
+
+# examining PCA results
+print(Mido[["pca"]], dims = 1:5, nfeatures = 5) 
+
+# visualizing PCA results in VizDimReduction(), DimPlot(), and DimHeatmap()
+png("~/scHAMR/Seurat/PCA/VizDimLoadings.png", width = 800, height = 400, pointsize = 12)
+VizDimLoadings(Mido, dims = 1:2, reduction = "pca")
+dev.off()
+png("~/scHAMR/Seurat/PCA/DimPlot.png", width = 800, height = 600, pointsize = 12)
+DimPlot(Mido, reduction = "pca")
+dev.off()
+png("~/scHAMR/Seurat/PCA/DimHeatmap.png", width = 1200, height = 1200, pointsize = 12)
+DimHeatmap(Mido, dims = 1:12, cells = 500, balanced = TRUE)
+dev.off()
+
+## Determine the dataset dimensionality
+# determining the top PCs (and how many) that represent a robust compression for the dataset.
+Mido <- JackStraw(Mido, num.replicate = 100, dims = 50)
+Mido <- ScoreJackStraw(Mido, dims = 1:50)
+# Visualizing the distribution of p-values for each PC with uniform distribution (the dashed line). Elbow plot can be used as an alternative.
+png("~/scHAMR/Seurat/PCA/JackStrawPlot.png", width = 800, height = 400, pointsize = 12)
+JackStrawPlot(Mido, dims = 1:50)
+dev.off()
+png("~/scHAMR/Seurat/PCA/ElbowPlot.png", width = 800, height = 600, pointsize = 12)
+ElbowPlot(Mido)
+dev.off()
+```
+
 
 ### Option 2: Scanpy in Python
 
@@ -182,10 +332,40 @@ import scanpy as sc
 
 ## 5. Running HAMR
 
+1. Clusters
+
 ```bash
-# Commands for running HAMR analysis on cluster or cell-level BAM files
+
 mkdir HAMR_clusters
-# ... further instructions for executing HAMR analysis
+cd clusters_BAM
+# creating a for loop that runs over all BAM files in the directory clusters_BAM
+for i in $(ls *)
+do python2 ~/HAMRdirectory/HAMR-1.2/hamr.py $i  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  models/euk_trna_mods.Rdata ~/scHAMR/HAMR_clusters  HAMR_$(basename $i)  30 10 0.05 H4 0.01 0.05 0.05
+done
+```
+
+2. Cell-by-Cell (optional)
+
+```bash
+
+mkdir HAMR_cells
+cd splitted_bams
+
+# creating a for loop that runs over all BAM files in the directory clusters_BAM
+for i in $(ls *)
+do python2 ~/HAMRdirectory/HAMR-1.2/hamr.py $i  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  models/euk_trna_mods.Rdata ~/scHAMR/HAMR_cells  HAMR_$(basename $i .pdf)  30 10 0.05 H4 0.01 0.05 0.05
+done
+```
+
+3. Bulk (optional)
+
+```bash
+
+mkdir HAMR_Bulk
+python2 ~/HAMRdirectory/HAMR-1.2/hamr.py ~/scHAMR/STARsolo_results/Aligned.sortedByCoord.out.bam  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  models/euk_trna_mods.Rdata ~/scHAMR/HAMR_Bulk HAMR_results 30 10 0.05 H4 0.01 0.05 0.05
+
+# for filtered reads according to the true cells detected by STARsolo
+python2 ~/HAMRdirectory/HAMR-1.2/hamr.py ~/scHAMR/filtered_bam/filtered_bam  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  models/euk_trna_mods.Rdata ~/scHAMR/HAMR_Bulk HAMR_results 30 10 0.05 H4 0.01 0.05 0.05
 ```
 
 ## 6. Example Runs
