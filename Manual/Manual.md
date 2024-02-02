@@ -20,8 +20,10 @@
    - Human Pancreatic Islets
 
 ## 1. Pipeline Diagram
-![Alt text](pip1.png)
-![Alt text](pip2.png)
+
+<img src="./pip1.png" alt="alt text" width="500" height="300">
+
+<img src="./pip2.png" alt="alt text" width="500" height="300">
 
 ## 2. Prerequisites
 The running environment: Bash terminal on a Linux-based operating system (with Standard POSIX programs)
