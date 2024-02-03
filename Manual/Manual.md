@@ -37,26 +37,7 @@ The running environment: Bash terminal on a Linux-based operating system (with S
 - STAR aligner (v.2.7.11a)
 - SRA Toolkit (V.3.x)
 - 10X Genomics subset-bam (v.1.1.0)
-
-This software is not officially supported by 10X Genomics. If you have troubles installing the software, run the following commands to install:
-```bash
-mkdir subset_bam
-cd subset_bam 
-wget https://github.com/10XGenomics/subset-bam/releases/download/v1.1.0/subset-bam_linux
-mv subset-bam_linux subset-bam
-chmod +x ./subset-bam
-export PATH=$PATH:~/software/subset_bam/
-```
-To operate the software, run one of the following commands:
-
-```bash
-./subset-bam  # if you are in the directory
-subset-bam # if you exported the path
-./ <full/path/to/subset-bam/directory>/subset-bam   # else
-```
-
-
-- 10X Genomics Cell Ranger (v.7.0.1)
+- 10X Genomics Cell Ranger (v.7.2.0)
 - Seurat Package in R (v.4.0)
 - HAMR (v.1.2)
 
@@ -371,3 +352,142 @@ python2 ~/HAMRdirectory/HAMR-1.2/hamr.py ~/scHAMR/filtered_bam/filtered_bam  ~/s
 ## 6. Example Runs
 
 - Instructions and commands for example analyses on specific cell types.
+
+
+## 7. Installing Prerequisites
+
+1. STAR
+
+Check the official resources here <https://github.com/alexdobin/STAR>
+
+```bash
+# get the latest STAR release
+wget https://github.com/alexdobin/STAR/archive/2.7.11b.tar.gz
+tar -xzf 2.7.11b.tar.gz
+cd STAR-2.7.11b/source
+make STAR
+
+# or 
+sudo apt install rna-star
+
+
+# to run in the command line
+STAR [options]
+```
+
+2. bamtools
+
+```bash
+sudo apt install bamtools
+
+# to run in the command line
+bamtools <commands>
+```
+
+3. samtools
+
+```bash
+sudo apt install samtools
+
+# to run in the command line
+samtools <commands>
+```
+
+4. SRA-toolkit
+
+```bash
+sudo apt install SRA-tookit
+```
+
+5. 10X Genomics subset-bam
+
+This software is not officially supported by 10X Genomics. If you have troubles installing the software, run the following commands to install:
+
+```bash
+mkdir subset_bam
+cd subset_bam 
+wget https://github.com/10XGenomics/subset-bam/releases/download/v1.1.0/subset-bam_linux
+mv subset-bam_linux subset-bam
+chmod +x ./subset-bam
+export PATH=$PATH:~/<full/path/to/subset-bam/directory>/subset_bam/
+```
+To operate the software, run one of the following commands:
+
+```bash
+./subset-bam  # if you are in the directory
+subset-bam # if you exported the path
+./ <full/path/to/subset-bam/directory>/subset-bam   # else
+```
+
+6. 10X Genomics Cell Ranger
+
+Check the official resources here https://www.10xgenomics.com/support/software/cell-ranger/latest/tutorials/cr-tutorial-in
+
+```bash
+# download tar.gz file from the website or use your specific link you got after logging in above with the following command
+# replace x.y.z with the specific version 
+wget -O cellranger-<x.y.z>.tar.gz "<replace with your specific link>"
+
+# unpack the downloaded file
+tar -xzvf cellranger-x.y.z.tar.gz
+
+# export the path
+export PATH=~/<full path to the file location>/cellranger-x.y.z:$PATH
+
+# to run in command line
+cellranger <command>
+```
+
+7. R
+
+```bash
+# to install
+sudo apt install r-base
+
+# to check the version installed
+R --version
+
+# to run in command line
+R
+```
+
+8. Python
+
+```bash
+# installing python 3
+sudo apt install python3
+sudo apt install python3-pip
+
+# installing python 2
+sudo apt install python2
+```
+
+9. Seurat Package in R
+
+Check the official resources here https://satijalab.org/seurat/
+
+```bash
+# install system dependencies
+sudo apt-get update
+sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+# run R in terminal
+R
+# install R dependencies
+install.packages(c("curl", "openssl", "igraph", "httr", "leiden", "plotly"))
+# install Seurat
+install.packages("Seurat")
+# close R 
+q()
+```
+
+10. Scanpy Package in Python
+Check the official resources here https://scanpy.readthedocs.io/en/stable/
+```bash
+# install scanpy
+python3 -m pip install scanpy
+
+# run python3 in terminal
+python3
+# check scanpy
+import scanpy as sc
+```
