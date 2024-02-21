@@ -396,7 +396,7 @@ samtools <commands>
 4. SRA-toolkit
 
 ```bash
-sudo apt install SRA-tookit
+sudo apt install sra-toolkit
 ```
 
 5. 10X Genomics subset-bam
