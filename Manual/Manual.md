@@ -2,30 +2,35 @@
 
 ## Table of Contents
 
-1. scHAMR pipeline diagram
-2. Prerequisites
-3. Preprocessing
-   - Starting up and loading the dataset
-   - Building the genome index
-   - Aligning the reads, CB demultiplexing, UMI deduplication, counting, and cell calling
-4. Processing
-   - Cell by cell as a potential option
-   - Clustering
-     - Option 1: Seurat in R
-     - Option 2: Scanpy in Python
-   - Obtaining a BAM file per cluster
-5. Running HAMR
-6. Example Runs
-   - Drosophila Escort Cells
-   - Human Pancreatic Islets
+1. [scHAMR pipeline diagram](#1-pipeline-diagram)
+2. [Prerequisites](#2-prerequisites)
+3. [Preprocessing](#3-preprocessing)
+   - [Starting up and loading the dataset](#31-starting-up-and-loading-the-dataset)
+   - [Building the genome index](#32-building-the-genome-index)
+   - [Alignment and Quantification](#33-alignment-and-quantification)
+4. [Processing](#4-processing)
+   - [Cell by cell](#41-cell-by-cell-analysis-optional)
+   - [Clustering](#42-clustering)
+     - [Option 1: Seurat in R](#option-1-seurat-in-r)
+     - [Option 2: Scanpy in Python](#option-2-scanpy-in-python)
+   - [Generating cluster-specific BAM files](#43-generating-cluster-specific-bam-files)
+5. [Running HAMR](#5-running-hamr)
+6. [Example Runs](#6-example-runs)
+   - [Drosophila Escort Cells](#drosophila-escort-cells)
+   - [Human Pancreatic Islets](#human-pancreatic-islets)
+7. [Installing Prerequisites](#7-installing-prerequisites)
+8. [Troubleshooting]()
 
 ## 1. Pipeline Diagram
-
+<details>
 <img src="./pip1.png" alt="alt text" width="500" height="300">
 
 <img src="./pip2.png" alt="alt text" width="500" height="300">
 
+</details>
+
 ## 2. Prerequisites
+<details>
 The running environment: Bash terminal on a Linux-based operating system (with Standard POSIX programs)
 
 #### Essential software and tools with versions
@@ -40,12 +45,14 @@ The running environment: Bash terminal on a Linux-based operating system (with S
 - 10X Genomics Cell Ranger (v.7.2.0)
 - Seurat Package in R (v.4.0)
 - HAMR (v.1.2)
-
+</details>
 
 ## 3. Preprocessing
+<details>
 
 ### 3.1. Starting up and Loading the Dataset
 
+<details>
 Commands to set up directories, load, and preprocess data
 
 ```bash
@@ -66,9 +73,10 @@ fasterq-dump ~/scHAMR/SRR_data/<SRRxxxxxxxx> --split-files
 ls
 cd ~/scHAMR
 ```
+</details>
 
 ### 3.2. Building the Genome Index
-
+<details>
 Although the annotations should not be added in building the genome index since HAMR requires no spliced junctions, STARsolo requires the annotations to run and produce the count matrix after aligning. The spliced junction problems will be solved during the aligning step. Additionally, the annotations file needs to be filtered for exons as recommended by 10Xgenomics and STARsolo to properly create the count matrix.
 
 
@@ -94,8 +102,11 @@ cellranger mkgtf <input.annotations_file.gtf> <output.annotations_filtered_file.
 STAR --runMode genomeGenerate --runThreadN 4 --genomeDir STAR_annotated_index/ --genomeFastaFiles <reference genome file.fa> --sjdbGTFfile <annotations_filtered_file.gtf> --genomeSAindexNbases 12 --genomeSAsparseD 3
 cd ~/scHAMR
 ```
+</details>
 
-### 3.3.	Aligning the Reads, CB Demultiplexing, UMI Deduplication, Counting and Cell Calling
+
+### 3.3. Alignment and Quantification
+<details>
 
 STARsolo is used for this step since it provides flexibility in use to work within the constraints of HAMR as well as producing comparable results to CellRanger
 1.	Spliced junctions for mRNA need to be filtered out. To filter them out in bulk RNA-seq, the STAR aligner parameter --alignIntronMax 1 is usually used along with not including the annotations file in the genome index step. That is because --alignIntronMax 1 only controls the unannotated junctions and has no control over the junctions annotated in building the genome index. However, the annotations file is required for scRNA-seq as discussed earlier in the genome index step. To fix this problem, the annotated spliced junctions can be filtered out by increasing increasing the overhang to a number bigger than the read length, --alignSJDBoverhangMin 999 (n> read length).
@@ -124,11 +135,17 @@ samtools index ~/scHAMR/STARsolo_results/Aligned.sortedByCoord.out.bam
 ```
 
 The output of STARsolo includes the BAM file as well as raw and filtered count matrix in addition to other complementary files as summaries and logs. The filtered count matrix and BAM are required for the next steps.
+</details>
 
+</details>
 
 ## 4. Processing
 
+<details>
+
 ### 4.1. Cell by Cell Analysis (Optional)
+
+<details>
 
 The Bam file generated in the previous step can technically be split to a BAM file per individual cell and then running them through HAMR for a HAMR result per each cell. Since the reads count per cell is relatively low compared to bulk seq data, even after filtering for actual cells, most HAMR results would be empty and inaccurate as HAMR requires adequate read depth. Additionally, that will generate so many BAM files, representing the number of cells detected, and we may not be interested to view hundreds of HAMR results.
 
@@ -154,7 +171,11 @@ bamtools split -in filtered_bam -tag CB:Z
 cd ~/scHAMR
 ```
 
+</details>
+
 ### 4.2. Clustering
+
+<details>
 
 ``` bash
 # directory for all clustering analyses
@@ -163,6 +184,8 @@ cd clustering
 ```
 
 ### Option 1: Seurat in R
+
+<details>
 
 ``` bash
 # directory for all Seurat analyses
@@ -307,8 +330,11 @@ ElbowPlot(Mido)
 dev.off()
 ```
 
+</details>
 
 ### Option 2: Scanpy in Python
+
+<details>
 
 **1. Setting up and Loading dataset**
 
@@ -861,7 +887,17 @@ Finally, exit python environment
 exit()
 ```
 
+</details>
+
+</details>
+
+</details>
+
+### 4.3. Generating cluster-specific BAM files
+
+
 ## 5. Running HAMR
+<details>
 
 1. Clusters
 
@@ -898,13 +934,29 @@ python2 ~/HAMRdirectory/HAMR-1.2/hamr.py ~/scHAMR/STARsolo_results/Aligned.sorte
 # for filtered reads according to the true cells detected by STARsolo
 python2 ~/HAMRdirectory/HAMR-1.2/hamr.py ~/scHAMR/filtered_bam/filtered_bam  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  models/euk_trna_mods.Rdata ~/scHAMR/HAMR_Bulk HAMR_results 30 10 0.05 H4 0.01 0.05 0.05
 ```
+</details>
 
 ## 6. Example Runs
+<details>
 
 - Instructions and commands for example analyses on specific cell types.
+<details>
 
+### Drosophila Escort Cells 
+
+</details>
+
+<details>
+
+### Human Pancreatic Islets
+
+</details>
+
+</details>
 
 ## 7. Installing Prerequisites
+
+<details>
 
 1. STAR
 
@@ -1041,3 +1093,8 @@ python3
 # check scanpy
 import scanpy as sc
 ```
+</details>
+
+## 8. Troubleshooting
+<details>
+</details>
