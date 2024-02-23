@@ -1,0 +1,2 @@
+chr	bp	strand	refnuc	A	C	G	T	nonref	ref	h1.p	h1.padj	h4.p	h4.padj	sig	pred.mod
+3L	8729064	+	C	1153	16729	154	1058	2365	16729	0	0	1.1473685143823e-16	1.26876010320395e-12	TRUE	m3C
