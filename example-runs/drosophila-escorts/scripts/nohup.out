@@ -1,0 +1,1333 @@
+--2024-02-22 17:07:41--  https://teichlab.github.io/scg_lib_structs/data/737K-august-2016.txt.gz
+Resolving teichlab.github.io (teichlab.github.io)... 185.199.109.153, 185.199.108.153, 185.199.110.153, ...
+Connecting to teichlab.github.io (teichlab.github.io)|185.199.109.153|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2237432 (2.1M) [application/gzip]
+Saving to: ‘737K-august-2016.txt.gz’
+
+     0K .......... .......... .......... .......... ..........  2% 1.98M 1s
+    50K .......... .......... .......... .......... ..........  4% 7.13M 1s
+   100K .......... .......... .......... .......... ..........  6% 12.3M 0s
+   150K .......... .......... .......... .......... ..........  9% 13.6M 0s
+   200K .......... .......... .......... .......... .......... 11% 9.68M 0s
+   250K .......... .......... .......... .......... .......... 13% 16.5M 0s
+   300K .......... .......... .......... .......... .......... 16% 16.6M 0s
+   350K .......... .......... .......... .......... .......... 18% 9.05M 0s
+   400K .......... .......... .......... .......... .......... 20% 11.2M 0s
+   450K .......... .......... .......... .......... .......... 22% 17.2M 0s
+   500K .......... .......... .......... .......... .......... 25% 16.7M 0s
+   550K .......... .......... .......... .......... .......... 27% 10.9M 0s
+   600K .......... .......... .......... .......... .......... 29% 21.9M 0s
+   650K .......... .......... .......... .......... .......... 32% 13.0M 0s
+   700K .......... .......... .......... .......... .......... 34% 6.98M 0s
+   750K .......... .......... .......... .......... .......... 36% 11.8M 0s
+   800K .......... .......... .......... .......... .......... 38% 12.8M 0s
+   850K .......... .......... .......... .......... .......... 41% 7.46M 0s
+   900K .......... .......... .......... .......... .......... 43% 20.2M 0s
+   950K .......... .......... .......... .......... .......... 45% 11.1M 0s
+  1000K .......... .......... .......... .......... .......... 48% 21.6M 0s
+  1050K .......... .......... .......... .......... .......... 50% 4.51M 0s
+  1100K .......... .......... .......... .......... .......... 52% 2.81M 0s
+  1150K .......... .......... .......... .......... .......... 54% 16.6M 0s
+  1200K .......... .......... .......... .......... .......... 57% 6.52M 0s
+  1250K .......... .......... .......... .......... .......... 59% 23.1M 0s
+  1300K .......... .......... .......... .......... .......... 61% 11.9M 0s
+  1350K .......... .......... .......... .......... .......... 64% 8.37M 0s
+  1400K .......... .......... .......... .......... .......... 66% 22.4M 0s
+  1450K .......... .......... .......... .......... .......... 68% 17.4M 0s
+  1500K .......... .......... .......... .......... .......... 70% 7.07M 0s
+  1550K .......... .......... .......... .......... .......... 73% 15.2M 0s
+  1600K .......... .......... .......... .......... .......... 75% 18.4M 0s
+  1650K .......... .......... .......... .......... .......... 77% 13.9M 0s
+  1700K .......... .......... .......... .......... .......... 80% 22.9M 0s
+  1750K .......... .......... .......... .......... .......... 82% 15.9M 0s
+  1800K .......... .......... .......... .......... .......... 84% 17.3M 0s
+  1850K .......... .......... .......... .......... .......... 86% 16.9M 0s
+  1900K .......... .......... .......... .......... .......... 89% 8.82M 0s
+  1950K .......... .......... .......... .......... .......... 91% 2.39M 0s
+  2000K .......... .......... .......... .......... .......... 93% 22.3M 0s
+  2050K .......... .......... .......... .......... .......... 96% 16.0M 0s
+  2100K .......... .......... .......... .......... .......... 98% 3.11M 0s
+  2150K .......... .......... .......... ....                 100% 19.2M=0.2s
+
+2024-02-22 17:07:42 (8.97 MB/s) - ‘737K-august-2016.txt.gz’ saved [2237432/2237432]
+
+	/usr/lib/rna-star/bin/STAR-avx2 --runThreadN 4 --genomeDir reference_genome/STAR_annotated_index/ --readFilesIn FASTQ_data/SRR10612247_2.fastq FASTQ_data/SRR10612247_1.fastq --outFileNamePrefix STARsolo_results/ --outReadsUnmapped Fastx --outSAMattributes NH HI NM MD CB UB sM sS sQ --outFilterMultimapNmax 1 --outFilterMatchNmin 30 --outFilterMismatchNmax 4 --alignIntronMax 1 --alignSJDBoverhangMin 999 --soloType CB_UMI_Simple --soloCellFilter EmptyDrops_CR --soloCBwhitelist CB_whitelist/737K-august-2016.txt --soloBarcodeReadLength 1 -- soloUMIlen 10 --outSAMtype BAM SortedByCoordinate --limitBAMsortRAM 60000000000
+	STAR version: 2.7.10a   compiled: 2022-01-16T16:35:44+00:00 <place not set in Debian package>
+Feb 22 17:07:42 ..... started STAR run
+Feb 22 17:07:42 ..... loading genome
+Feb 22 17:08:06 ..... started mapping
+Feb 22 19:01:04 ..... finished mapping
+Feb 22 19:01:04 ..... started Solo counting
+Feb 22 19:11:05 ..... finished Solo counting
+Feb 22 19:11:05 ..... started sorting BAM
+Feb 22 20:03:23 ..... finished successfully
+00:48:49 [DEBUG] subset_bam: Loaded 1045 barcodes
+01:12:34 [INFO] Chunk 0 is done
+01:12:34 [INFO] Merging 2 BAM chunks into final output
+01:31:31 [INFO] Done!
+01:31:31 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 50920646
+01:31:33 [DEBUG] subset_bam: Loaded 804 barcodes
+01:51:45 [INFO] Chunk 0 is done
+01:51:45 [INFO] Merging 2 BAM chunks into final output
+02:07:25 [INFO] Done!
+02:07:25 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 42286973
+02:07:25 [DEBUG] subset_bam: Loaded 490 barcodes
+02:14:01 [INFO] Chunk 0 is done
+02:14:01 [INFO] Merging 2 BAM chunks into final output
+02:14:27 [INFO] Done!
+02:14:27 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 1199959
+02:14:27 [DEBUG] subset_bam: Loaded 401 barcodes
+02:29:28 [INFO] Chunk 0 is done
+02:29:28 [INFO] Merging 2 BAM chunks into final output
+02:38:51 [INFO] Done!
+02:38:51 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 25455926
+02:38:51 [DEBUG] subset_bam: Loaded 271 barcodes
+02:50:37 [INFO] Chunk 0 is done
+02:50:37 [INFO] Merging 2 BAM chunks into final output
+02:56:28 [INFO] Done!
+02:56:28 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 16003812
+02:56:28 [DEBUG] subset_bam: Loaded 147 barcodes
+03:04:07 [INFO] Chunk 0 is done
+03:04:07 [INFO] Merging 2 BAM chunks into final output
+03:05:31 [INFO] Done!
+03:05:31 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 4124043
+03:05:31 [DEBUG] subset_bam: Loaded 132 barcodes
+03:12:41 [INFO] Chunk 0 is done
+03:12:41 [INFO] Merging 2 BAM chunks into final output
+03:13:34 [INFO] Done!
+03:13:34 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 2681063
+03:13:34 [DEBUG] subset_bam: Loaded 61 barcodes
+03:20:12 [INFO] Chunk 0 is done
+03:20:12 [INFO] Merging 2 BAM chunks into final output
+03:20:31 [INFO] Done!
+03:20:31 [INFO] Visited 169758228 alignments, found 169758228 with barcodes and kept 893466
+
+
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_5_D1748_D1610; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_12_D1771; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_28_D1723; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_15_D1727; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_23_D1638; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_41_D1641; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_26_D1717; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: 211000022279009; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: 211000022280742; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280466; loading... loaded
+Encountered new ref: 211000022280461; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022280457; loading... loaded
+Encountered new ref: 211000022280473; loading... loaded
+Encountered new ref: 211000022279667; loading... loaded
+Encountered new ref: 211000022280525; loading... loaded
+Encountered new ref: 211000022278312; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022280524; loading... loaded
+Encountered new ref: 211000022280687; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022280035; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022279061; loading... loaded
+Encountered new ref: 211000022280095; loading... loaded
+Encountered new ref: 211000022280062; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278743; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278172; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022280492; loading... loaded
+Encountered new ref: 211000022280302; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022279197; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022278536; loading... loaded
+Encountered new ref: 211000022278205; loading... loaded
+Encountered new ref: 211000022278522; loading... loaded
+Encountered new ref: 211000022278211; loading... loaded
+Encountered new ref: 211000022279104; loading... loaded
+Encountered new ref: 211000022279029; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279529; loading... loaded
+Encountered new ref: 211000022278167; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022279516; loading... loaded
+Encountered new ref: 211000022279343; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022279708; loading... loaded
+Encountered new ref: 211000022279496; loading... loaded
+Encountered new ref: 211000022279172; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279555; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022278946; loading... loaded
+Encountered new ref: 211000022279722; loading... loaded
+Encountered new ref: 211000022279901; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022278750; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022280312; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022279151; loading... loaded
+Encountered new ref: 211000022278349; loading... loaded
+Encountered new ref: 211000022278878; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278339; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278158; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022278541; loading... loaded
+Encountered new ref: 211000022278939; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022279134; loading... loaded
+Encountered new ref: 211000022280427; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 0 (genome-wide)
+BAM for HAMR analysis: 0
+Running RNApileup /home/myousry2002/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+Traceback (most recent call last):
+  File "/home/myousry2002/HAMR/HAMR-1.2/hamr.py", line 154, in <module>
+    fmismatchbed=open(mismatchbed,'w')
+IOError: [Errno 2] No such file or directory: '/home/myousry2002/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_0.mismatch.bed'
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_31_D1643_D1653_D1791; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_5_D1748_D1610; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_12_D1771; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_11_D1754; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: 211000022278049; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: 211000022278875; loading... loaded
+Encountered new ref: 211000022279094; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: Unmapped_Scaffold_54_D1776; loading... loaded
+Encountered new ref: 211000022280742; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022278032; loading... loaded
+Encountered new ref: 211000022280519; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280466; loading... loaded
+Encountered new ref: 211000022280461; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022279855; loading... loaded
+Encountered new ref: 211000022278100; loading... loaded
+Encountered new ref: 211000022280525; loading... loaded
+Encountered new ref: 211000022279945; loading... loaded
+Encountered new ref: 211000022278312; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022280440; loading... loaded
+Encountered new ref: 211000022280588; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022279061; loading... loaded
+Encountered new ref: 211000022280214; loading... loaded
+Encountered new ref: 211000022278440; loading... loaded
+Encountered new ref: 211000022278790; loading... loaded
+Encountered new ref: 211000022279911; loading... loaded
+Encountered new ref: 211000022280062; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022280492; loading... loaded
+Encountered new ref: 211000022278507; loading... loaded
+Encountered new ref: 211000022280302; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022278716; loading... loaded
+Encountered new ref: 211000022278869; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022278522; loading... loaded
+Encountered new ref: 211000022280294; loading... loaded
+Encountered new ref: 211000022278589; loading... loaded
+Encountered new ref: 211000022278879; loading... loaded
+Encountered new ref: 211000022278211; loading... loaded
+Encountered new ref: 211000022279104; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022278872; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279529; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022278793; loading... loaded
+Encountered new ref: 211000022280044; loading... loaded
+Encountered new ref: 211000022278144; loading... loaded
+Encountered new ref: 211000022279343; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022280157; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022279172; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279017; loading... loaded
+Encountered new ref: 211000022279555; loading... loaded
+Encountered new ref: 211000022278769; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022279655; loading... loaded
+Encountered new ref: 211000022278946; loading... loaded
+Encountered new ref: 211000022278416; loading... loaded
+Encountered new ref: 211000022278174; loading... loaded
+Encountered new ref: 211000022279722; loading... loaded
+Encountered new ref: 211000022280130; loading... loaded
+Encountered new ref: 211000022278663; loading... loaded
+Encountered new ref: 211000022279901; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022278750; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022278736; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278873; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022278349; loading... loaded
+Encountered new ref: 211000022278573; loading... loaded
+Encountered new ref: 211000022278878; loading... loaded
+Encountered new ref: 211000022279141; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278600; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278339; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278158; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022278541; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022278386; loading... loaded
+Encountered new ref: 211000022278207; loading... loaded
+Encountered new ref: 211000022278350; loading... loaded
+Encountered new ref: 211000022279132; loading... loaded
+Encountered new ref: 211000022280427; loading... loaded
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading...Analyzing 1 (genome-wide)
+BAM for HAMR analysis: 1
+Running RNApileup /home/myousry2002/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Traceback (most recent call last):
+  File "/home/myousry2002/HAMR/HAMR-1.2/hamr.py", line 145, in <module>
+    ffilteredpileupcov=open(filteredpileupcov,'w')
+IOError: [Errno 2] No such file or directory: '/home/myousry2002/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_1.pileup.filtered.10'
+ loaded
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: 211000022280519; loading... loaded
+Encountered new ref: 211000022280461; loading... loaded
+Encountered new ref: 211000022280578; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022278339; loading... loaded
+Analyzing 2 (genome-wide)
+BAM for HAMR analysis: 2
+Running RNApileup /home/myousry2002/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+Traceback (most recent call last):
+  File "/home/myousry2002/HAMR/HAMR-1.2/hamr.py", line 187, in <module>
+    retOut=subprocess.check_output(['grep', '-c','TRUE',raw_file])
+  File "/usr/lib/python2.7/subprocess.py", line 223, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+subprocess.CalledProcessError: Command '['grep', '-c', 'TRUE', '/home/myousry2002/scHAMR/HAMR_clusters/HAMR_2.raw.txt']' returned non-zero exit status 1
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_5_D1748_D1610; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_12_D1771; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_28_D1723; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_15_D1727; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_23_D1638; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_41_D1641; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_26_D1717; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: 211000022279009; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: 211000022280742; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280466; loading... loaded
+Encountered new ref: 211000022280461; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022280457; loading... loaded
+Encountered new ref: 211000022280473; loading... loaded
+Encountered new ref: 211000022279667; loading... loaded
+Encountered new ref: 211000022280525; loading... loaded
+Encountered new ref: 211000022278312; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022280524; loading... loaded
+Encountered new ref: 211000022280687; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022280035; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022279061; loading... loaded
+Encountered new ref: 211000022280095; loading... loaded
+Encountered new ref: 211000022280062; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278743; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278172; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022280492; loading... loaded
+Encountered new ref: 211000022280302; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022279197; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022278536; loading... loaded
+Encountered new ref: 211000022278205; loading... loaded
+Encountered new ref: 211000022278522; loading... loaded
+Encountered new ref: 211000022278211; loading... loaded
+Encountered new ref: 211000022279104; loading... loaded
+Encountered new ref: 211000022279029; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279529; loading... loaded
+Encountered new ref: 211000022278167; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022279516; loading... loaded
+Encountered new ref: 211000022279343; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022279708; loading... loaded
+Encountered new ref: 211000022279496; loading... loaded
+Encountered new ref: 211000022279172; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279555; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022278946; loading... loaded
+Encountered new ref: 211000022279722; loading... loaded
+Encountered new ref: 211000022279901; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022278750; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022280312; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022279151; loading... loaded
+Encountered new ref: 211000022278349; loading... loaded
+Encountered new ref: 211000022278878; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278339; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278158; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022278541; loading... loaded
+Encountered new ref: 211000022278939; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022279134; loading... loaded
+Encountered new ref: 211000022280427; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_31_D1643_D1653_D1791; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_28_D1723; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_36_D1605; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_23_D1638; loading... loaded
+Encountered new ref: 211000022278049; loading... loaded
+Encountered new ref: 211000022278415; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: Unmapped_Scaffold_37_D1608; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: Unmapped_Scaffold_54_D1776; loading... loaded
+Encountered new ref: 211000022279098; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280519; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022278100; loading... loaded
+Encountered new ref: 211000022280525; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022278398; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022280639; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022278114; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022280492; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022279101; loading... loaded
+Encountered new ref: 211000022278652; loading... loaded
+Encountered new ref: 211000022278522; loading... loaded
+Encountered new ref: 211000022278879; loading... loaded
+Encountered new ref: 211000022280657; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279529; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022278882; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022278663; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022279134; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 3 (genome-wide)
+BAM for HAMR analysis: 3
+Running RNApileup /home/myousry2002/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Traceback (most recent call last):
+  File "/home/myousry2002/HAMR/HAMR-1.2/hamr.py", line 145, in <module>
+    ffilteredpileupcov=open(filteredpileupcov,'w')
+IOError: [Errno 2] No such file or directory: '/home/myousry2002/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_3.pileup.filtered.10'
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 0 (genome-wide)
+BAM for HAMR analysis: 0
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Traceback (most recent call last):
+  File "/home/myousry2002/scHAMR/HAMR/HAMR-1.2/hamr.py", line 145, in <module>
+    ffilteredpileupcov=open(filteredpileupcov,'w')
+IOError: [Errno 2] No such file or directory: '/home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_0.pileup.filtered.10'
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_5_D1748_D1610; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_12_D1771; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_28_D1723; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_15_D1727; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_23_D1638; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_41_D1641; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_26_D1717; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: 211000022279009; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: 211000022280742; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280466; loading... loaded
+Encountered new ref: 211000022280461; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022280457; loading... loaded
+Encountered new ref: 211000022280473; loading... loaded
+Encountered new ref: 211000022279667; loading... loaded
+Encountered new ref: 211000022280525; loading... loaded
+Encountered new ref: 211000022278312; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022280524; loading... loaded
+Encountered new ref: 211000022280687; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022280035; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022279061; loading... loaded
+Encountered new ref: 211000022280095; loading... loaded
+Encountered new ref: 211000022280062; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278743; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278172; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022280492; loading... loaded
+Encountered new ref: 211000022280302; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022279197; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022278536; loading... loaded
+Encountered new ref: 211000022278205; loading... loaded
+Encountered new ref: 211000022278522; loading... loaded
+Encountered new ref: 211000022278211; loading... loaded
+Encountered new ref: 211000022279104; loading... loaded
+Encountered new ref: 211000022279029; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279529; loading... loaded
+Encountered new ref: 211000022278167; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022279516; loading... loaded
+Encountered new ref: 211000022279343; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022279708; loading... loaded
+Encountered new ref: 211000022279496; loading... loaded
+Encountered new ref: 211000022279172; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279555; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022278946; loading... loaded
+Encountered new ref: 211000022279722; loading... loaded
+Encountered new ref: 211000022279901; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022278750; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022280312; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022279151; loading... loaded
+Encountered new ref: 211000022278349; loading... loaded
+Encountered new ref: 211000022278878; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278339; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278158; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022278541; loading... loaded
+Encountered new ref: 211000022278939; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022279134; loading... loaded
+Encountered new ref: 211000022280427; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 0 (genome-wide)
+BAM for HAMR analysis: 0
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+converting output to bed format...
+calculating number of HAMR-accessible bases...
+Sites analyzed (read depth>=10): 4618759
+Modification sites found: 27
+HAMR analysis complete
+
+------------------------------
+
+Sites used for analysis: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_0.freqtable.final.txt
+Statistical testing results: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_0.raw.txt
+Modification sites + predicted types saved to: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_0.mods.txt
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_31_D1643_D1653_D1791; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_5_D1748_D1610; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_12_D1771; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_11_D1754; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: 211000022278049; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: 211000022278875; loading... loaded
+Encountered new ref: 211000022279094; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: Unmapped_Scaffold_54_D1776; loading... loaded
+Encountered new ref: 211000022280742; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022278032; loading... loaded
+Encountered new ref: 211000022280519; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280466; loading... loaded
+Encountered new ref: 211000022280461; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022279855; loading... loaded
+Encountered new ref: 211000022278100; loading... loaded
+Encountered new ref: 211000022280525; loading... loaded
+Encountered new ref: 211000022279945; loading... loaded
+Encountered new ref: 211000022278312; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022280440; loading... loaded
+Encountered new ref: 211000022280588; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022279061; loading... loaded
+Encountered new ref: 211000022280214; loading... loaded
+Encountered new ref: 211000022278440; loading... loaded
+Encountered new ref: 211000022278790; loading... loaded
+Encountered new ref: 211000022279911; loading... loaded
+Encountered new ref: 211000022280062; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022280492; loading... loaded
+Encountered new ref: 211000022278507; loading... loaded
+Encountered new ref: 211000022280302; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022278716; loading... loaded
+Encountered new ref: 211000022278869; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022278522; loading... loaded
+Encountered new ref: 211000022280294; loading... loaded
+Encountered new ref: 211000022278589; loading... loaded
+Encountered new ref: 211000022278879; loading... loaded
+Encountered new ref: 211000022278211; loading... loaded
+Encountered new ref: 211000022279104; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022278872; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279529; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022278793; loading... loaded
+Encountered new ref: 211000022280044; loading... loaded
+Encountered new ref: 211000022278144; loading... loaded
+Encountered new ref: 211000022279343; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022280157; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022279172; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279017; loading... loaded
+Encountered new ref: 211000022279555; loading... loaded
+Encountered new ref: 211000022278769; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022279655; loading... loaded
+Encountered new ref: 211000022278946; loading... loaded
+Encountered new ref: 211000022278416; loading... loaded
+Encountered new ref: 211000022278174; loading... loaded
+Encountered new ref: 211000022279722; loading... loaded
+Encountered new ref: 211000022280130; loading... loaded
+Encountered new ref: 211000022278663; loading... loaded
+Encountered new ref: 211000022279901; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022278750; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022278736; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278873; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022278349; loading... loaded
+Encountered new ref: 211000022278573; loading... loaded
+Encountered new ref: 211000022278878; loading... loaded
+Encountered new ref: 211000022279141; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278600; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278339; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278158; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022278541; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022278386; loading... loaded
+Encountered new ref: 211000022278207; loading... loaded
+Encountered new ref: 211000022278350; loading... loaded
+Encountered new ref: 211000022279132; loading... loaded
+Encountered new ref: 211000022280427; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 1 (genome-wide)
+BAM for HAMR analysis: 1
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+converting output to bed format...
+calculating number of HAMR-accessible bases...
+Sites analyzed (read depth>=10): 4357849
+Modification sites found: 21
+HAMR analysis complete
+
+------------------------------
+
+Sites used for analysis: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_1.freqtable.final.txt
+Statistical testing results: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_1.raw.txt
+Modification sites + predicted types saved to: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_1.mods.txt
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: 211000022280519; loading... loaded
+Encountered new ref: 211000022280461; loading... loaded
+Encountered new ref: 211000022280578; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022278339; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 2 (genome-wide)
+BAM for HAMR analysis: 2
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+Traceback (most recent call last):
+  File "/home/myousry2002/scHAMR/HAMR/HAMR-1.2/hamr.py", line 187, in <module>
+    retOut=subprocess.check_output(['grep', '-c','TRUE',raw_file])
+  File "/usr/lib/python2.7/subprocess.py", line 223, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+subprocess.CalledProcessError: Command '['grep', '-c', 'TRUE', '/home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_2.raw.txt']' returned non-zero exit status 1
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_31_D1643_D1653_D1791; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_28_D1723; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_36_D1605; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_23_D1638; loading... loaded
+Encountered new ref: 211000022278049; loading... loaded
+Encountered new ref: 211000022278415; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: Unmapped_Scaffold_37_D1608; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: Unmapped_Scaffold_54_D1776; loading... loaded
+Encountered new ref: 211000022279098; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280519; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022278100; loading... loaded
+Encountered new ref: 211000022280525; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022278398; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022280639; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022278114; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022280492; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022279101; loading... loaded
+Encountered new ref: 211000022278652; loading... loaded
+Encountered new ref: 211000022278522; loading... loaded
+Encountered new ref: 211000022278879; loading... loaded
+Encountered new ref: 211000022280657; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279529; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022278882; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022278663; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022279134; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 3 (genome-wide)
+BAM for HAMR analysis: 3
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+converting output to bed format...
+calculating number of HAMR-accessible bases...
+Sites analyzed (read depth>=10): 2924962
+Modification sites found: 11
+HAMR analysis complete
+
+------------------------------
+
+Sites used for analysis: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_3.freqtable.final.txt
+Statistical testing results: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_3.raw.txt
+Modification sites + predicted types saved to: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_3.mods.txt
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_4_D1555_D1692; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_5_D1748_D1610; loading... loaded
+Encountered new ref: Unmapped_Scaffold_28_D1723; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_23_D1638; loading... loaded
+Encountered new ref: Unmapped_Scaffold_38_D1625; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 211000022279446; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: 211000022279098; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280645; loading... loaded
+Encountered new ref: 211000022280473; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022280296; loading... loaded
+Encountered new ref: 211000022279224; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022280062; loading... loaded
+Encountered new ref: 211000022278327; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022278282; loading... loaded
+Encountered new ref: 211000022278664; loading... loaded
+Encountered new ref: 211000022279635; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022278536; loading... loaded
+Encountered new ref: 211000022279104; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022279172; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279974; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022278423; loading... loaded
+Encountered new ref: 211000022279722; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022278878; loading... loaded
+Encountered new ref: 211000022278241; loading... loaded
+Encountered new ref: 211000022278903; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022278311; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278199; loading... loaded
+Encountered new ref: 211000022280043; loading... loaded
+Encountered new ref: 211000022279286; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022279132; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 4 (genome-wide)
+BAM for HAMR analysis: 4
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+converting output to bed format...
+calculating number of HAMR-accessible bases...
+Sites analyzed (read depth>=10): 2510287
+Modification sites found: 9
+HAMR analysis complete
+
+------------------------------
+
+Sites used for analysis: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_4.freqtable.final.txt
+Statistical testing results: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_4.raw.txt
+Modification sites + predicted types saved to: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_4.mods.txt
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280473; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022280296; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022278724; loading... loaded
+Encountered new ref: 211000022280062; loading... loaded
+Encountered new ref: 211000022278327; loading... loaded
+Encountered new ref: 211000022278743; loading... loaded
+Encountered new ref: 211000022280302; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022278869; loading... loaded
+Encountered new ref: 211000022278220; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022279392; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022278348; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279452; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022278877; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278985; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 5 (genome-wide)
+BAM for HAMR analysis: 5
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+converting output to bed format...
+calculating number of HAMR-accessible bases...
+Sites analyzed (read depth>=10): 954168
+Modification sites found: 2
+HAMR analysis complete
+
+------------------------------
+
+Sites used for analysis: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_5.freqtable.final.txt
+Statistical testing results: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_5.raw.txt
+Modification sites + predicted types saved to: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_5.mods.txt
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_5_D1748_D1610; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 211000022278498; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022279635; loading... loaded
+Encountered new ref: 211000022279104; loading... loaded
+Encountered new ref: 211000022279343; loading... loaded
+Encountered new ref: 211000022279722; loading... loaded
+Encountered new ref: 211000022278663; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022279108; loading... loaded
+Encountered new ref: 211000022278880; loading... loaded
+Encountered new ref: 211000022278537; loading... loaded
+Encountered new ref: 211000022278704; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 6 (genome-wide)
+BAM for HAMR analysis: 6
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+converting output to bed format...
+calculating number of HAMR-accessible bases...
+Sites analyzed (read depth>=10): 500957
+Modification sites found: 1
+HAMR analysis complete
+
+------------------------------
+
+Sites used for analysis: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_temp/HAMR.HAMR_6.freqtable.final.txt
+Statistical testing results: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_6.raw.txt
+Modification sites + predicted types saved to: /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_6.mods.txt
+Encountered new ref: 2L; loading... loaded
+Encountered new ref: 2R; loading... loaded
+Encountered new ref: 3L; loading... loaded
+Encountered new ref: 3R; loading... loaded
+Encountered new ref: 4; loading... loaded
+Encountered new ref: X; loading... loaded
+Encountered new ref: Y; loading... loaded
+Encountered new ref: mitochondrion_genome; loading... loaded
+Encountered new ref: Unmapped_Scaffold_8_D1580_D1567; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_31_D1643_D1653_D1791; loading... loaded
+Encountered new ref: rDNA; loading... loaded
+Encountered new ref: 3Cen_mapped_Scaffold_1_D1896_D1895; loading... loaded
+Encountered new ref: XY_mapped_Scaffold_7_D1574; loading... loaded
+Encountered new ref: Unmapped_Scaffold_28_D1723; loading... loaded
+Encountered new ref: 2Cen_mapped_Scaffold_43_D1668; loading... loaded
+Encountered new ref: Y_mapped_Scaffold_18_D1698; loading... loaded
+Encountered new ref: X3X4_mapped_Scaffold_6_D1712; loading... loaded
+Encountered new ref: Unmapped_Scaffold_46_D1675; loading... loaded
+Encountered new ref: Unmapped_Scaffold_60_D1601; loading... loaded
+Encountered new ref: 2R2_mapped_Scaffold_56_D1828; loading... loaded
+Encountered new ref: Unmapped_Scaffold_58_D1862; loading... loaded
+Encountered new ref: 211000022280748; loading... loaded
+Encountered new ref: 211000022280466; loading... loaded
+Encountered new ref: 211000022279453; loading... loaded
+Encountered new ref: 211000022279945; loading... loaded
+Encountered new ref: 211000022278312; loading... loaded
+Encountered new ref: 211000022280595; loading... loaded
+Encountered new ref: 211000022278785; loading... loaded
+Encountered new ref: 211000022279109; loading... loaded
+Encountered new ref: 211000022278554; loading... loaded
+Encountered new ref: 211000022279056; loading... loaded
+Encountered new ref: 211000022279126; loading... loaded
+Encountered new ref: 211000022278942; loading... loaded
+Encountered new ref: 211000022280453; loading... loaded
+Encountered new ref: 211000022280698; loading... loaded
+Encountered new ref: 211000022278205; loading... loaded
+Encountered new ref: 211000022278876; loading... loaded
+Encountered new ref: 211000022279515; loading... loaded
+Encountered new ref: 211000022279876; loading... loaded
+Encountered new ref: 211000022279393; loading... loaded
+Encountered new ref: 211000022279484; loading... loaded
+Encountered new ref: 211000022278604; loading... loaded
+Encountered new ref: 211000022280157; loading... loaded
+Encountered new ref: 211000022278808; loading... loaded
+Encountered new ref: 211000022279222; loading... loaded
+Encountered new ref: 211000022279799; loading... loaded
+Encountered new ref: 211000022279800; loading... loaded
+Encountered new ref: 211000022279899; loading... loaded
+Encountered new ref: 211000022279055; loading... loaded
+Encountered new ref: 211000022278540; loading... loaded
+Encountered new ref: 211000022279801; loading... loaded
+Encountered new ref: 211000022278772; loading... loaded
+Encountered new ref: 211000022279791; loading... loaded
+Encountered new ref: 211000022280427; loading... loaded
+Existing output folder /home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters detected, will overwrite all internal files
+Analyzing 7 (genome-wide)
+BAM for HAMR analysis: 7
+Running RNApileup /home/myousry2002/scHAMR/HAMR/HAMR-1.2/rnapileup
+Running filter_pileup...
+Filter coverage...
+Running rnapileup2mismatchbed...
+converting mismatch BED to nucleotide frequency table
+testing for statistical significance...
+predicting modification identity...
+Traceback (most recent call last):
+  File "/home/myousry2002/scHAMR/HAMR/HAMR-1.2/hamr.py", line 187, in <module>
+    retOut=subprocess.check_output(['grep', '-c','TRUE',raw_file])
+  File "/usr/lib/python2.7/subprocess.py", line 223, in check_output
+    raise CalledProcessError(retcode, cmd, output=output)
+subprocess.CalledProcessError: Command '['grep', '-c', 'TRUE', '/home/myousry2002/scHAMR/example-runs/drosophila-escorts/scHAMR/HAMR_clusters/HAMR_7.raw.txt']' returned non-zero exit status 1
