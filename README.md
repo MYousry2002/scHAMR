@@ -1,1 +1,2 @@
 # scHAMR
+scHAMR is a pipeline that adapts the High-throughput Annotation of Modified Ribonucleotides (HAMR) tool to single-cell resolution. HAMR identifies and classifies RNA covalent modifications transcriptome-wide at a single-nucleotide resolution. This pipeline enables researchers to apply HAMR analysis to single-cell RNA sequencing (scRNA-seq) data, opening new avenues for studying RNA modifications in individual cells and their implications in biology and disease.
