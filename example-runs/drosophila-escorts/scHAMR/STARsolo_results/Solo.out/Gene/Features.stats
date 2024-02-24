@@ -1,0 +1,11 @@
+                                        noUnmapped       14044794
+                                       noNoFeature       13268077
+                                      MultiFeature         634946
+                       subMultiFeatureMultiGenomic              0
+                                noTooManyWLmatches          58275
+                              noMMtoWLwithoutExact          16140
+                                        yesWLmatch      151968525
+                                yessubWLmatchExact      150352673
+                       yessubWLmatch_UniqueFeature      151968525
+                                   yesCellBarcodes         560330
+                                           yesUMIs       99933749
