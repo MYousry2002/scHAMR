@@ -1,0 +1,19 @@
+### /usr/lib/rna-star/bin/STAR-avx2   --runMode genomeGenerate      --runThreadN 4   --genomeDir STAR_annotated_index/   --genomeFastaFiles Drosophila_melanogaster.BDGP6.46.dna.toplevel.fa      --genomeSAindexNbases 12   --genomeSAsparseD 3   --sjdbGTFfile filtered_Drosophila_melanogaster.BDGP6.46.111.gtf
+### GstrandBit 32
+versionGenome	2.7.4a
+genomeType	Full
+genomeFastaFiles	Drosophila_melanogaster.BDGP6.46.dna.toplevel.fa 
+genomeSAindexNbases	12
+genomeChrBinNbits	18
+genomeSAsparseD	3
+genomeTransformType	None
+genomeTransformVCF	-
+sjdbOverhang	100
+sjdbFileChrStartEnd	- 
+sjdbGTFfile	filtered_Drosophila_melanogaster.BDGP6.46.111.gtf
+sjdbGTFchrPrefix	-
+sjdbGTFfeatureExon	exon
+sjdbGTFtagExonParentTranscript	transcript_id
+sjdbGTFtagExonParentGene	gene_id
+sjdbInsertSave	Basic
+genomeFileSizes	638577969 488873001

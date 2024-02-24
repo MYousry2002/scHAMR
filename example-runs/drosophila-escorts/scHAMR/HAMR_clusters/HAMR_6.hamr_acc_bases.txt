@@ -1,0 +1,2 @@
+sample	mods	hamr_accessible_bases	mods_per_million_accessible_bases
+HAMR_6	1	500957	1.9961793128
