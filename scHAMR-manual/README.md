@@ -18,7 +18,7 @@
 6. [Example Runs](#6-example-runs)
    - [Drosophila Escort Cells](#drosophila-escort-cells)
    - [Human Pancreatic Islets](#human-pancreatic-islets)
-7. [Installing Prerequisites](#7-installing-prerequisites)
+7. [Installation](#7-installing-prerequisites)
 8. [Troubleshooting]()
 
 ## 1. Pipeline Diagram
@@ -102,6 +102,20 @@ cellranger mkgtf <input.annotations_file.gtf> <output.annotations_filtered_file.
 STAR --runMode genomeGenerate --runThreadN 4 --genomeDir STAR_annotated_index/ --genomeFastaFiles <reference genome file.fa> --sjdbGTFfile <annotations_filtered_file.gtf> --genomeSAindexNbases 12 --genomeSAsparseD 3
 cd ~/scHAMR
 ```
+**Cell Ranger options**
+* mkgtf used to filter and prepare the gene annotations. It takes the path for the input gtf and output gtf. 
+* --attribute=gene_biotype:protein_coding option is used to filter by protein coding regions or exons.
+
+**STAR options**
+* --runMode  genomeGenerate option directs STAR to run genome indices generation job.
+* --runThreadN option defines the number of threads to be used for genome generation, it has
+to be set to the number of available cores on the server node.
+* --genomeDir specifies the directory for the genome index. It has to be created before running STAR.
+* --genomeFastaFiles specifies the path for the genome fasta file.
+* --sjdbGTFfile specifies the path for the gene annotations file.
+* --genomeSAindexNbases specifies an integer value for the length of the SA pre-indexing string in bases, typically between 10 and 15.
+* --genomeSAsparseD specifies a positive integer value for suffux array sparsity, distance between indices. A smaller value increases mapping speed but also increases needed RAM.
+
 </details>
 
 
