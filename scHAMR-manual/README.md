@@ -175,15 +175,44 @@ STARsolo is used for this step since it provides flexibility in use to work with
 Commands for aligning the Reads, CB Demultiplexing, UMI Deduplication, Counting and Cell Calling with STAR
 
 ```bash
-# loading the 10x Genomics cells barcodes whitelist
+
+# Directory for 10x Genomics cells barcodes whitelist
 mkdir -p CB_whitelist
 cd CB_whitelist
-wget <link for CB whitelist txt file>
+# Replace with the actual link to download the CB whitelist text file
+CB_WHITELIST_LINK="<link for CB whitelist txt file>"
+wget ${CB_WHITELIST_LINK}
 gzip -d *.gz
+
+# Returning to the scHAMR directory
 cd ${SC_HAMR_DIR}
 
-# mapping with STARsolo
-STAR --runThreadN 4   --genomeDir reference_genome/STAR_annotated_index/ --readFilesIn FASTQ_data/<Second file with actual cDNA reads.fastq>   FASTQ_data/<first file with CB(16b)+UMI(10b) reads.fastq>  --outFileNamePrefix STARsolo_results/   --outReadsUnmapped Fastx   --outSAMattributes NH   HI   NM   MD  CB UB sM sS sQ    --outFilterMultimapNmax 1   --outFilterMatchNmin 30   --outFilterMismatchNmax 4   --alignIntronMax 1   --alignSJDBoverhangMin 999   --soloType CB_UMI_Simple --soloCellFilter EmptyDrops_CR  --soloCBwhitelist CB_whitelist/<CB whitelist file.txt> --soloBarcodeReadLength 1 --soloCBlen 16 -- soloUMIlen <10 or 12 based on the 10X version> --outSAMtype BAM SortedByCoordinate --limitBAMsortRAM 60000000000
+# Variables for file names - adjust these as per your dataset
+FASTQ_CDNA="FASTQ_data/<Second file with actual cDNA reads.fastq>"
+FASTQ_CB_UMI="FASTQ_data/<first file with CB(16b)+UMI(10b) reads.fastq>"
+CB_WHITELIST_FILE="CB_whitelist/<CB whitelist file.txt>"
+UMI_LENGTH="<10 or 12 based on the 10X version>"
+
+# Mapping with STARsolo
+STAR --runThreadN 4 \
+  --genomeDir reference_genome/STAR_annotated_index/ \
+  --readFilesIn ${FASTQ_CDNA} ${FASTQ_CB_UMI} \
+  --outFileNamePrefix STARsolo_results/ \
+  --outReadsUnmapped Fastx \
+  --outSAMattributes NH HI NM MD CB UB sM sS sQ \
+  --outFilterMultimapNmax 1 \
+  --outFilterMatchNmin 30 \
+  --outFilterMismatchNmax 4 \
+  --alignIntronMax 1 \
+  --alignSJDBoverhangMin 999 \
+  --soloType CB_UMI_Simple \
+  --soloCellFilter EmptyDrops_CR \
+  --soloCBwhitelist ${CB_WHITELIST_FILE} \
+  --soloBarcodeReadLength 1 \
+  --soloCBlen 16 \
+  --soloUMIlen ${UMI_LENGTH} \
+  --outSAMtype BAM SortedByCoordinate \
+  --limitBAMsortRAM 60000000000
 
 # indexing the resulted BAM
 samtools index ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam
