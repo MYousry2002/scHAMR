@@ -239,6 +239,25 @@ STAR --runThreadN 4 \
 # Indexing the resulted BAM with samtools
 samtools index ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam
 ```
+**STAR options**
+* --genomeDir /path/to/genomeDir
+* --readFilesIn /path/to/read2(cDNA) /path/to/read1(technical)
+* --outFileNamePrefix /path/to/output/dir/prefix
+* --outReadsUnmapped (str default=None; Fastx): output of unmapped and partially mapped (i.e. mapped only one mate of a paired end read) reads in separate file(s). None: no output. Fastx: output in separate fasta/fastq files, Unmapped.out.mate1/2.
+* --outSAMattributes SAM attributes (default: NH HI AS nM).
+* --outFilterMultimapNmax max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped.
+* --outFilterMatchNmin (default=0) int: alignment will be output only if the number of matched bases is higher than or equal to this value.
+* --outFilterMismatchNmax maximum number of mismatches per pair, large number switches off this filter.
+* --alignIntronMax (default: 1000000) int: maximum intron length.
+* --alignSJDBoverhangMin (default: 3) int>0: minimum overhang (i.e. block size) for annotated (sjdb) spliced alignments.
+* --soloType (default: None) string(s): type of single-cell RNA-seq.
+* --soloCellFilter EmptyDrops_CR option for cell filtering (calling) nearly identical to that of CellRanger 3 and 4.
+* --soloCBwhitelist /path/to/cell/barcode/whitelist The 10X Chromium whitelist file can be found inside the CellRanger distribution, e.g. [here](https://teichlab.github.io/scg_lib_structs/methods_html/10xChromium3.html) and [here] (https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Please make sure that the whitelist is compatible with the specific version of the 10X chemistry (V2,V3, etc).
+* --soloBarcodeReadLength  (default: 1) int: length of the barcode read. 1: equal to sum of soloCBlen+soloUMIlen. 0: not defined, do not check.
+* --soloCBlen (default: 16) int>0: cell barcode length.
+* --soloUMIlen (default: 10) int>0: UMI length.
+* --outSAMtype BAM SortedByCoordinate.
+* --limitBAMsortRAM  RAM assigned for BAM sorting. 
 
 The output of STARsolo includes the BAM file as well as raw and filtered count matrix in addition to other complementary files as summaries and logs. The filtered count matrix and BAM are required for the next steps.
 </details>
