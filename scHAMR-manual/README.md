@@ -124,23 +124,45 @@ Although the annotations should not be added in building the genome index since 
 Commands for building genome index with STAR
  
 ```bash
-# Ensuring the starting directory is ~/scHAMR
+# Ensuring the starting directory scHAMR
 cd ${SC_HAMR_DIR}
 
-# genome index directory
+# Genome index directory
 mkdir -p reference_genome
 cd reference_genome
 
-# loading required files: genome fasta and annotations GTF
-wget <link for ensembl reference genome fasta file>
-wget <link for ensembl annotations GTF file>
+# Replace these with actual links to the reference genome and annotations
+ENSEMBL_GENOME_FASTA_LINK="<link for ensembl reference genome fasta file>"
+ENSEMBL_ANNOTATIONS_GTF_LINK="<link for ensembl annotations GTF file>"
+
+# Downloading the genome fasta and annotations GTF from Ensembl
+wget ${ENSEMBL_GENOME_FASTA_LINK}
+wget ${ENSEMBL_ANNOTATIONS_GTF_LINK}
+
+# Decompress if the files are gzipped
 gzip -d *.gz
 
-# filtering the annotations for exons
-cellranger mkgtf <input.annotations_file.gtf> <output.annotations_filtered_file.gtf> --attribute=gene_biotype:protein_coding
+# Replace this with the actual file name of the downloaded and now decompressed file
+INPUT_ANNOTATIONS_FILE="<input.annotations_file.gtf>"
+# Replace this with the name for the filtered annotations file
+OUTPUT_ANNOTATIONS_FILTERED_FILE="<output.annotations_filtered_file.gtf>"
 
-# building genome index using STAR
-STAR --runMode genomeGenerate --runThreadN 4 --genomeDir STAR_annotated_index/ --genomeFastaFiles <reference genome file.fa> --sjdbGTFfile <annotations_filtered_file.gtf> --genomeSAindexNbases 12 --genomeSAsparseD 3
+# Filtering the annotations for exons
+cellranger mkgtf ${INPUT_ANNOTATIONS_FILE} ${OUTPUT_ANNOTATIONS_FILTERED_FILE} --attribute=gene_biotype:protein_coding
+
+# Replace these placeholders with the actual names of the genome fasta and filtered annotations file
+REFERENCE_GENOME_FILE="<reference_genome_file.fa>"
+ANNOTATIONS_FILTERED_FILE="<annotations_filtered_file.gtf>"
+
+# Building the genome index using STAR
+STAR --runMode genomeGenerate --runThreadN 4 \
+     --genomeDir STAR_annotated_index/ \
+     --genomeFastaFiles ${REFERENCE_GENOME_FILE} \
+     --sjdbGTFfile ${ANNOTATIONS_FILTERED_FILE} \
+     --genomeSAindexNbases 12 \
+     --genomeSAsparseD 3
+
+# Returning to the scHAMR directory
 cd ${SC_HAMR_DIR}
 ```
 **Cell Ranger options**
