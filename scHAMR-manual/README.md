@@ -214,7 +214,7 @@ STAR --runThreadN 4 \
   --outSAMtype BAM SortedByCoordinate \
   --limitBAMsortRAM 60000000000
 
-# indexing the resulted BAM
+# Indexing the resulted BAM with samtools
 samtools index ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam
 ```
 
