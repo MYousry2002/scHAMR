@@ -252,7 +252,7 @@ samtools index ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam
 * --alignSJDBoverhangMin (default: 3) int>0: minimum overhang (i.e. block size) for annotated (sjdb) spliced alignments.
 * --soloType (default: None) string(s): type of single-cell RNA-seq.
 * --soloCellFilter EmptyDrops_CR option for cell filtering (calling) nearly identical to that of CellRanger 3 and 4.
-* --soloCBwhitelist /path/to/cell/barcode/whitelist The 10X Chromium whitelist file can be found inside the CellRanger distribution, e.g. [here](https://teichlab.github.io/scg_lib_structs/methods_html/10xChromium3.html) and [here] (https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Please make sure that the whitelist is compatible with the specific version of the 10X chemistry (V2,V3, etc).
+* --soloCBwhitelist /path/to/cell/barcode/whitelist The 10X Chromium whitelist file can be found inside the CellRanger distribution, e.g. [here](https://teichlab.github.io/scg_lib_structs/methods_html/10xChromium3.html) and [here](https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Please make sure that the whitelist is compatible with the specific version of the 10X chemistry (V2,V3, etc).
 * --soloBarcodeReadLength  (default: 1) int: length of the barcode read. 1: equal to sum of soloCBlen+soloUMIlen. 0: not defined, do not check.
 * --soloCBlen (default: 16) int>0: cell barcode length.
 * --soloUMIlen (default: 10) int>0: UMI length.
