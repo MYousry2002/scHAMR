@@ -50,16 +50,18 @@ The running environment: Bash terminal on a Linux-based operating system (with S
 ## 3. Preprocessing
 <details>
 
+```bash
+# creating a directory that will hold all the analyses
+mkdir -p scHAMR
+cd ~/scHAMR
+```
+
 ### 3.1. Starting up and Loading the Dataset
 
 <details>
 Commands to set up directories, load, and preprocess data
 
 ```bash
-# creating a directory that will hold all the analyses
-mkdir -p scHAMR
-cd ~/scHAMR
-
 # loading the sample data from GEO in SRA format
 mkdir -p SRR_data
 cd SRR_data
@@ -70,9 +72,47 @@ cd ~/scHAMR
 mkdir -p FASTQ_data
 cd FASTQ_data
 fasterq-dump ~/scHAMR/SRR_data/<SRRxxxxxxxx> --split-files
+
+# List the files to confirm they are all there
 ls
 cd ~/scHAMR
 ```
+
+If there are multiple datasets, use these commands instead
+
+```bash
+# List of datasets to download, replace with the actual ID
+datasets=(SRRxxxxxxxx SRRxxxxxxxx SRRxxxxxxxx SRRxxxxxxxx SRRxxxxxxxx)
+
+# Creating a directory to hold the SRA files
+mkdir -p SRR_data
+cd SRR_data
+
+# Looping through each dataset ID to download
+for dataset_id in "${datasets[@]}"
+do
+    echo "Downloading $dataset_id..."
+    prefetch $dataset_id --max-size 200G
+done
+cd ..
+
+# Creating a directory for FASTQ data
+mkdir -p FASTQ_data
+cd FASTQ_data
+
+# Looping through each dataset ID to convert to FASTQ and split files
+for dataset_id in "${datasets[@]}"
+do
+    echo "Converting $dataset_id to FASTQ and splitting files..."
+    fasterq-dump ${SC_HAMR_DIR}/SRR_data/$dataset_id --split-files
+done
+
+# List the files to confirm they are all there
+ls
+cd ..
+
+```
+
 </details>
 
 ### 3.2. Building the Genome Index
