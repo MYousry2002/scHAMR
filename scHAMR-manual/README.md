@@ -1129,7 +1129,11 @@ cd ${SC_HAMR_DIR}/CBs_Clusters/CBs/
 
 # running subset-bam in a loop over all clusters
 for i in $(ls *.csv)
-do subset-bam --bam ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam --cell-barcodes $i --bam-tag CB:Z --out-bam ${SC_HAMR_DIR}/clusters_BAM/$(basename $i .csv) --log-level debug --cores 2
+do subset-bam --bam ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam\
+--cell-barcodes $i\
+--bam-tag CB:Z\
+--out-bam ${SC_HAMR_DIR}/clusters_BAM/$(basename $i .csv)\
+--log-level debug --cores 2
 done
 
 cd ${SC_HAMR_DIR}
@@ -1180,16 +1184,83 @@ python2 ~/HAMR/HAMR-1.2/hamr.py ${SC_HAMR_DIR}/filtered_bam/filtered_bam  ${SC_H
 ## 6. Example Runs
 <details>
 
-- Instructions and commands for example analyses on specific cell types.
+The scHAMR pipeline was applied to different human and non-human datasets for its optimization and validation.
+
+### Drosophila Escort Cells
 <details>
 
-### Drosophila Escort Cells 
+This dataset, with GEO accession number GSE141701, comprises single-cell RNA sequencing (scRNA-seq) data of escort cells (ECs) from the ovaries of 5-7 days old Drosophila melanogaster adults. Shi et al. (2021) obtained this data using the 10X Genomics Chromium V.2 protocol. They used it to reveal the heterogeneity of escort cells, offering new insights into their roles in germline cyst differentiation.
+
+Find the scripts to run the scHAMR pipeline on this dataset and the scHAMR pipeline results here:
+
+```graph
+
+example-runs/                              # Directory for example scHAMR runs
+│
+└── drosophila-escorts/                    # Drosophila escorts dataset example
+    │
+    ├── scripts/                           # Scripts to run the scHAMR pipeline on this dataset
+    │   ├── startingup-loadingdata.sh      # Starting up and loading dataset (bash)
+    │   ├── reference-genome.sh            # Building the genome index (bash)
+    │   ├── alignment-quantification.sh    # Alignment and Quantification with STARsolo (bash)
+    │   ├── clustering.ipynb               # Jupyter notebook for clustering using Scanpy (python)
+    │   ├── clusters-bam.sh                # Generating a bam for each cluster (bash)
+    │   ├── running-hamr.sh                # Running HAMR
+    │   ├── nohup.out                      # Logs for running the bash scripts
+    │   └── README.md                      # Instructions for running the scripts
+    │
+    └── scHAMR/                            # scHAMR pipeline results
+        ├── SRR_data/                      # Dataset in SRA format
+        ├── FASTQ_data/                    # Dataset in FASTQ format
+        ├── reference_genome/              # Drosophila reference genome
+        ├── CB_whitelist/                  # 10X Genomics cell barcodes whitelist
+        ├── STARsolo_results/              # Alignment and quantification results
+        ├── clustering                     # Clustering and annotations results
+        ├── CBs_Clusters                   # Cell barcodes for each cluster
+        ├── clusters_BAM                   # A BAM file for each cluster
+        └── HAMR_clusters                  # HAMR results for each cluster
+
+```
 
 </details>
 
-<details>
 
 ### Human Pancreatic Islets
+<details>
+
+This dataset, with GEO accession number of  GSE198623, is single-cell RNA sequencing (scRNA-seq) data for human pancreatic islets. It is a collection of 5 samples of high-quality single-cell RNA-seq (scRNA-seq) data for the pancreatic islets from 5 healthy adult human donors. It was collected and deposited by Tritschler et al. (2022). Pancreatic islets, also called islets of Langerhans, contain several types of cells, including beta cells that make the hormone insulin. Emerging evidence suggests that islet cells are functionally heterogeneous to allow a fine-tuned and efficient endocrine response to physiological changes.
+
+Find the scripts to run the scHAMR pipeline on this dataset and the scHAMR pipeline results here:
+
+```graph
+
+example-runs/                              # Directory for example scHAMR runs
+│
+└── human-islets/                          # Human islets dataset example
+    │
+    ├── scripts/                           # Scripts to run the scHAMR pipeline on this dataset
+    │   ├── startingup-loadingdata.sh      # Starting up and loading dataset (bash)
+    │   ├── reference-genome.sh            # Building the genome index (bash)
+    │   ├── alignment-quantification.sh    # Alignment and Quantification with STARsolo (bash)
+    │   ├── clustering.ipynb               # Jupyter notebook for clustering using Scanpy (python)
+    │   ├── clusters-bam.sh                # Generating a bam for each cluster (bash)
+    │   ├── running-hamr.sh                # Running HAMR
+    │   ├── nohup.out                      # Logs for running the bash scripts
+    │   └── README.md                      # Instructions for running the scripts
+    │
+    └── scHAMR/                            # scHAMR pipeline results
+        ├── SRR_data/                      # Dataset in SRA format
+        ├── FASTQ_data/                    # Dataset in FASTQ format
+        ├── reference_genome/              # Drosophila reference genome
+        ├── CB_whitelist/                  # 10X Genomics cell barcodes whitelist
+        ├── STARsolo_results/              # Alignment and quantification results
+        ├── clustering                     # Clustering and annotations results
+        ├── CBs_Clusters                   # Cell barcodes for each cluster
+        ├── clusters_BAM                   # A BAM file for each cluster
+        └── HAMR_clusters                  # HAMR results for each cluster
+
+```
+
 
 </details>
 
