@@ -1,6 +1,4 @@
 # scHAMR
-scHAMR is a pipeline that adapts the High-throughput Annotation of Modified Ribonucleotides (HAMR) tool to single-cell resolution. HAMR identifies and classifies RNA covalent modifications transcriptome-wide at a single-nucleotide resolution. HAMR uses RNA-seq data mismatch patterns that are distinguishable from simple base-calling errors and produced by reverse transcriptase misincorporation at modified nucleotides. This pipeline enables researchers to apply HAMR analysis to single-cell RNA sequencing (scRNA-seq) data, opening new avenues for studying RNA modifications within individual cells and cell type and state clusters and offering an unprecedented scale of understanding cellular heterogeneity through an RNA covalent modifications lens and their implications in biology and disease.
-
 scHAMR presents a pioneering adaptation of the High Throughput Annotations of Modified Ribonucleotides (HAMR) computational tool to single-cell resolution, enabling single-cell RNA sequencing (scRNA-Seq) data analysis within HAMR’s framework. The scHAMR pipeline addresses the challenges and leverages the opportunities presented by the surge in single-cell RNA sequencing technologies, offering an unprecedented scale of understanding cellular heterogeneity through an RNA covalent modifications lens.
 
 ## Background and Challenges
@@ -27,12 +25,13 @@ scHAMR represents a significant leap forward in single-cell epitranscriptomics, 
 
 This scHAMR repository provides users with a rich set of resources including:
 
-1. scHAMR Manual: A full, detailed, and well-organized manual with complete instructions, and code is available. It ensures that users can  navigate the pipeline's features and utilize its functionality fully and smoothly. The manual encompasses all essential aspects from installations and setup to data preprocessing, data processing, running HAMR, and troubleshooting, among others.
+1. **scHAMR Manual**: A full, detailed, and well-organized manual with complete instructions, and code is available. It ensures that users can  navigate the pipeline's features and utilize its functionality fully and smoothly. The manual encompasses all essential aspects from installations and setup to data preprocessing, data processing, running HAMR, and troubleshooting, among others.
    
-2. Example Analyses: To illustrate the pipeline's capabilities and facilitate user understanding, the repository includes example analyses with their results:
-* Drosophila Escorts
-* Human Islets
-Accompanying each example are datasets, codes, and instructions to replicate the analyses and results, emphasizing the pipeline's reproducibility and transparency.
+2. **Example Analyses**: To illustrate the pipeline's capabilities and facilitate user understanding, the repository includes example analyses with their results:
+   * Drosophila Escorts
+   * Human Islets
+
+   Accompanying each example are datasets, codes, and instructions to replicate the analyses and results, emphasizing the pipeline's reproducibility and transparency.
 
 
 ```graph
@@ -60,7 +59,7 @@ scHAMR/                            # scHAMR repository
 
 ```
 
-# Contributions
+## Contributions
 Contributions are welcome. Please fork the repository and submit a pull request with your proposed additions or changes.
 
-# Licence
+## Licence
