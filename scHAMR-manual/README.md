@@ -18,7 +18,7 @@
 6. [Example Runs](#6-example-runs)
    - [Drosophila Escort Cells](#drosophila-escort-cells)
    - [Human Pancreatic Islets](#human-pancreatic-islets)
-7. [Installing Prerequisites](#7-installing-prerequisites)
+7. [Installation](#7-installing-prerequisites)
 8. [Troubleshooting]()
 
 ## 1. Pipeline Diagram
@@ -50,29 +50,70 @@ The running environment: Bash terminal on a Linux-based operating system (with S
 ## 3. Preprocessing
 <details>
 
+```bash
+# The directory where everything related to scHAMR will be stored.
+SC_HAMR_DIR=~/scHAMR # replace with the actual location
+mkdir -p ${SC_HAMR_DIR}
+cd ${SC_HAMR_DIR}
+```
+
 ### 3.1. Starting up and Loading the Dataset
 
 <details>
 Commands to set up directories, load, and preprocess data
 
 ```bash
-# creating a directory that will hold all the analyses
-mkdir -p scHAMR
-cd ~/scHAMR
-
 # loading the sample data from GEO in SRA format
 mkdir -p SRR_data
 cd SRR_data
 prefetch <SRRxxxxxxxx> --max-size 200G
-cd ~/scHAMR
+cd ${SC_HAMR_DIR}
 
 # converting it to FASTQ and spliting the files of reads (R1, R2, and possibly I1...).
 mkdir -p FASTQ_data
 cd FASTQ_data
-fasterq-dump ~/scHAMR/SRR_data/<SRRxxxxxxxx> --split-files
+fasterq-dump ${SC_HAMR_DIR}/SRR_data/<SRRxxxxxxxx> --split-files
+
+# List the files to confirm they are all there
 ls
-cd ~/scHAMR
+cd ${SC_HAMR_DIR}
 ```
+
+If there are multiple datasets, use these commands instead
+
+```bash
+# List of datasets to download, replace with the actual ID
+datasets=(SRRxxxxxxxx SRRxxxxxxxx SRRxxxxxxxx SRRxxxxxxxx SRRxxxxxxxx)
+
+# Creating a directory to hold the SRA files
+mkdir -p SRR_data
+cd SRR_data
+
+# Looping through each dataset ID to download
+for dataset_id in "${datasets[@]}"
+do
+    echo "Downloading $dataset_id..."
+    prefetch $dataset_id --max-size 200G
+done
+cd ${SC_HAMR_DIR}
+
+# Creating a directory for FASTQ data
+mkdir -p FASTQ_data
+cd FASTQ_data
+
+# Looping through each dataset ID to convert to FASTQ and split files
+for dataset_id in "${datasets[@]}"
+do
+    echo "Converting $dataset_id to FASTQ and splitting files..."
+    fasterq-dump ${SC_HAMR_DIR}/SRR_data/$dataset_id --split-files
+done
+
+# List the files to confirm they are all there
+ls
+cd ${SC_HAMR_DIR}
+
+```
+
 </details>
 
 ### 3.2. Building the Genome Index
@@ -83,25 +124,61 @@ Although the annotations should not be added in building the genome index since 
 Commands for building genome index with STAR
  
 ```bash
-# Ensuring the starting directory is ~/scHAMR
-cd ~/scHAMR
+# Ensuring the starting directory scHAMR
+cd ${SC_HAMR_DIR}
 
-# genome index directory
+# Genome index directory
 mkdir -p reference_genome
 cd reference_genome
 
-# loading required files: genome fasta and annotations GTF
-wget <link for ensembl reference genome fasta file>
-wget <link for ensembl annotations GTF file>
+# Replace these with actual links to the reference genome and annotations
+ENSEMBL_GENOME_FASTA_LINK="<link for ensembl reference genome fasta file>"
+ENSEMBL_ANNOTATIONS_GTF_LINK="<link for ensembl annotations GTF file>"
+
+# Downloading the genome fasta and annotations GTF from Ensembl
+wget ${ENSEMBL_GENOME_FASTA_LINK}
+wget ${ENSEMBL_ANNOTATIONS_GTF_LINK}
+
+# Decompress if the files are gzipped
 gzip -d *.gz
 
-# filtering the annotations for exons
-cellranger mkgtf <input.annotations_file.gtf> <output.annotations_filtered_file.gtf> --attribute=gene_biotype:protein_coding
+# Replace this with the actual file name of the downloaded and now decompressed file
+INPUT_ANNOTATIONS_FILE="<input.annotations_file.gtf>"
+# Replace this with the name for the filtered annotations file
+OUTPUT_ANNOTATIONS_FILTERED_FILE="<output.annotations_filtered_file.gtf>"
 
-# building genome index using STAR
-STAR --runMode genomeGenerate --runThreadN 4 --genomeDir STAR_annotated_index/ --genomeFastaFiles <reference genome file.fa> --sjdbGTFfile <annotations_filtered_file.gtf> --genomeSAindexNbases 12 --genomeSAsparseD 3
-cd ~/scHAMR
+# Filtering the annotations for exons
+cellranger mkgtf ${INPUT_ANNOTATIONS_FILE} ${OUTPUT_ANNOTATIONS_FILTERED_FILE} --attribute=gene_biotype:protein_coding
+
+# Replace these placeholders with the actual names of the genome fasta and filtered annotations file
+REFERENCE_GENOME_FILE="<reference_genome_file.fa>"
+ANNOTATIONS_FILTERED_FILE="<annotations_filtered_file.gtf>"
+
+# Building the genome index using STAR
+STAR --runMode genomeGenerate --runThreadN 4 \
+     --genomeDir STAR_annotated_index/ \
+     --genomeFastaFiles ${REFERENCE_GENOME_FILE} \
+     --sjdbGTFfile ${ANNOTATIONS_FILTERED_FILE} \
+     --genomeSAindexNbases 12 \
+     --genomeSAsparseD 3
+
+# Returning to the scHAMR directory
+cd ${SC_HAMR_DIR}
 ```
+**Cell Ranger options**
+* mkgtf used to filter and prepare the gene annotations. It takes the path for the input gtf and output gtf. 
+* --attribute=gene_biotype:protein_coding option is used to filter by protein coding regions or exons.
+
+**STAR options**
+* --runMode  genomeGenerate option directs STAR to run genome indices generation job.
+* --runThreadN option defines the number of threads to be used for genome generation, it has
+to be set to the number of available cores on the server node.
+* --genomeDir specifies the directory for the genome index. It has to be created before running STAR.
+* --genomeFastaFiles specifies the path for the genome fasta file.
+* --sjdbGTFfile specifies the path for the gene annotations file.
+* --genomeSAindexNbases specifies an integer value for the length of the SA pre-indexing string in bases, typically between 10 and 15.
+* --genomeSAsparseD specifies a positive integer value for suffux array sparsity, distance between indices. A smaller value increases mapping speed but also increases needed RAM.
+
 </details>
 
 
@@ -120,19 +197,67 @@ STARsolo is used for this step since it provides flexibility in use to work with
 Commands for aligning the Reads, CB Demultiplexing, UMI Deduplication, Counting and Cell Calling with STAR
 
 ```bash
-# loading the 10x Genomics cells barcodes whitelist
+
+# Directory for 10x Genomics cells barcodes whitelist
 mkdir -p CB_whitelist
 cd CB_whitelist
-wget <link for CB whitelist txt file>
+# Replace with the actual link to download the CB whitelist text file
+CB_WHITELIST_LINK="<link for CB whitelist txt file>"
+wget ${CB_WHITELIST_LINK}
 gzip -d *.gz
-cd ~/scHAMR
 
-# mapping with STARsolo
-STAR --runThreadN 4   --genomeDir reference_genome/STAR_annotated_index/ --readFilesIn FASTQ_data/<Second file with actual cDNA reads.fastq>   FASTQ_data/<first file with CB(16b)+UMI(10b) reads.fastq>  --outFileNamePrefix STARsolo_results/   --outReadsUnmapped Fastx   --outSAMattributes NH   HI   NM   MD  CB UB sM sS sQ    --outFilterMultimapNmax 1   --outFilterMatchNmin 30   --outFilterMismatchNmax 4   --alignIntronMax 1   --alignSJDBoverhangMin 999   --soloType CB_UMI_Simple --soloCellFilter EmptyDrops_CR  --soloCBwhitelist CB_whitelist/<CB whitelist file.txt> --soloBarcodeReadLength 1 --soloCBlen 16 -- soloUMIlen <10 or 12 based on the 10X version> --outSAMtype BAM SortedByCoordinate --limitBAMsortRAM 60000000000
+# Returning to the scHAMR directory
+cd ${SC_HAMR_DIR}
 
-# indexing the resulted BAM
-samtools index ~/scHAMR/STARsolo_results/Aligned.sortedByCoord.out.bam
+# Variables for file names - adjust these as per your dataset
+FASTQ_CDNA="FASTQ_data/<Second file with actual cDNA reads.fastq>"
+FASTQ_CB_UMI="FASTQ_data/<first file with CB(16b)+UMI(10b) reads.fastq>"
+CB_WHITELIST_FILE="CB_whitelist/<CB whitelist file.txt>"
+UMI_LENGTH="<10 or 12 based on the 10X version>"
+
+# Mapping with STARsolo
+STAR --runThreadN 4 \
+  --genomeDir reference_genome/STAR_annotated_index/ \
+  --readFilesIn ${FASTQ_CDNA} ${FASTQ_CB_UMI} \
+  --outFileNamePrefix STARsolo_results/ \
+  --outReadsUnmapped Fastx \
+  --outSAMattributes NH HI NM MD CB UB sM sS sQ \
+  --outFilterMultimapNmax 1 \
+  --outFilterMatchNmin 30 \
+  --outFilterMismatchNmax 4 \
+  --alignIntronMax 1 \
+  --alignSJDBoverhangMin 999 \
+  --soloType CB_UMI_Simple \
+  --soloCellFilter EmptyDrops_CR \
+  --soloCBwhitelist ${CB_WHITELIST_FILE} \
+  --soloBarcodeReadLength 1 \
+  --soloCBlen 16 \
+  --soloUMIlen ${UMI_LENGTH} \
+  --outSAMtype BAM SortedByCoordinate \
+  --limitBAMsortRAM 60000000000
+
+# Indexing the resulted BAM with samtools
+samtools index ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam
 ```
+**STAR options**
+* --genomeDir /path/to/genomeDir
+* --readFilesIn /path/to/read2(cDNA) /path/to/read1(technical)
+* --outFileNamePrefix /path/to/output/dir/prefix
+* --outReadsUnmapped (str default=None; Fastx): output of unmapped and partially mapped (i.e. mapped only one mate of a paired end read) reads in separate file(s). None: no output. Fastx: output in separate fasta/fastq files, Unmapped.out.mate1/2.
+* --outSAMattributes SAM attributes (default: NH HI AS nM).
+* --outFilterMultimapNmax max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped.
+* --outFilterMatchNmin (default=0) int: alignment will be output only if the number of matched bases is higher than or equal to this value.
+* --outFilterMismatchNmax maximum number of mismatches per pair, large number switches off this filter.
+* --alignIntronMax (default: 1000000) int: maximum intron length.
+* --alignSJDBoverhangMin (default: 3) int>0: minimum overhang (i.e. block size) for annotated (sjdb) spliced alignments.
+* --soloType (default: None) string(s): type of single-cell RNA-seq.
+* --soloCellFilter EmptyDrops_CR option for cell filtering (calling) nearly identical to that of CellRanger 3 and 4.
+* --soloCBwhitelist /path/to/cell/barcode/whitelist The 10X Chromium whitelist file can be found inside the CellRanger distribution, e.g. [here](https://teichlab.github.io/scg_lib_structs/methods_html/10xChromium3.html) and [here](https://kb.10xgenomics.com/hc/en-us/articles/115004506263-What-is-a-barcode-whitelist-). Please make sure that the whitelist is compatible with the specific version of the 10X chemistry (V2,V3, etc).
+* --soloBarcodeReadLength  (default: 1) int: length of the barcode read. 1: equal to sum of soloCBlen+soloUMIlen. 0: not defined, do not check.
+* --soloCBlen (default: 16) int>0: cell barcode length.
+* --soloUMIlen (default: 10) int>0: UMI length.
+* --outSAMtype BAM SortedByCoordinate.
+* --limitBAMsortRAM  RAM assigned for BAM sorting. 
 
 The output of STARsolo includes the BAM file as well as raw and filtered count matrix in addition to other complementary files as summaries and logs. The filtered count matrix and BAM are required for the next steps.
 </details>
@@ -155,8 +280,8 @@ Commands for optional cell by cell analysis
 #  filtering the bam file to include the actual cells only using the filtered barcodes file generated by STARsolo
 mkdir -p filtered_bam
 cd filtered_bam
-subset-bam --bam ~/scHAMR/STARsolo_results/Aligned.sortedByCoord.out.bam --cell-barcodes ~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv --bam-tag CB:Z --out-bam filtered_bam --log-level debug
-cd ~/scHAMR
+subset-bam --bam ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam --cell-barcodes ${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv --bam-tag CB:Z --out-bam filtered_bam --log-level debug
+cd ${SC_HAMR_DIR}
 
 # making sure that the allowed number of simultaneously openned files on the computer/server is bigger than the expected number of cells (number of filtered cells  barcodes). It is usually 1024. 
 # Setting it temporarily to 9999.
@@ -166,9 +291,9 @@ mkdir -p splitted_bams
 
 # spliting the generated bam file to a file for each individual cell based on the cell barcodes tag using bamtools.
 cd splitted_bams
-cp ~/scHAMR/filtered_bam/filtered_bam ~/scHAMR /splitted_bams/
+cp ${SC_HAMR_DIR}/filtered_bam/filtered_bam ${SC_HAMR_DIR} /splitted_bams/
 bamtools split -in filtered_bam -tag CB:Z
-cd ~/scHAMR
+cd ${SC_HAMR_DIR}
 ```
 
 </details>
@@ -183,7 +308,7 @@ mkdir -p clustering
 cd clustering
 ```
 
-### Option 2: Scanpy in Python
+### Option 1: Scanpy in Python
 
 <details>
 
@@ -192,13 +317,13 @@ cd clustering
 Scanpy expects zipped files:
 ```bash
 # gzip STARsolo results for Scanpy
-mkdir -p ~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/gzipped
-for file in ~/scHAMR/example-runs/drosophila-escorts/scHAMR/STARsolo_results/Solo.out/Gene/filtered/*; do
-    gzip -c "$file" > ~/scHAMR/example-runs/drosophila-escorts/scHAMR/STARsolo_results/Solo.out/Gene/filtered_gzipped/$(basename "$file").gz
+mkdir -p ${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/gzipped
+for file in ${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/*; do
+    gzip -c "$file" > ${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered_gzipped/$(basename "$file").gz
 done
 
 # start in the ~/scHAMR directory
-cd ~/scHAMR
+cd ${SC_HAMR_DIR}
 
 # starting the python environment
 python3
@@ -223,7 +348,7 @@ np.random.seed(223)
 
 Loading dataset:
 ```python
-# Reading the dataset into python as an anndata
+# Reading the dataset into python as an anndata, ensure the correct directory path
 files_path = '../scHAMR/STARsolo_results/Solo.out/Gene/filtered/gzipped/'
 adata = sc.read_10x_mtx(files_path)
 
@@ -678,7 +803,7 @@ cluster_ids = adata.obs['clusters']
 cb_cluster_df = pd.DataFrame({'CellBarcode': cell_barcodes, 'ClusterID': cluster_ids})
 
 # Saving the dataframe to CSV
-csv_file_path = "~/scHAMR/clustering/CBs_Clusters_dataframe.csv"  # Adjust the path as needed
+csv_file_path = "${SC_HAMR_DIR}/clustering/CBs_Clusters_dataframe.csv"  # Adjust the path as needed
 cb_cluster_df.to_csv(csv_file_path, index=False)
 ```
 
@@ -779,15 +904,15 @@ Loading dataset count matrix
 # importing the data count matrix (use 'ReadMtx'for bundle formate matrix
 # or 'Read10X' for tubler formate matrix by 10X, or ReadSTARsolo for star, or manually)
 
-seurat_obj.data <- ReadSTARsolo(data.dir ="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/")
+seurat_obj.data <- ReadSTARsolo(data.dir ="${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/")
 
 # or:
-# seurat_obj.data <- readMM("~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/matrix.mtx")
-# rownames(seurat_obj.data) <- read_tsv("~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/features.tsv", col_names=FALSE)[, 1, drop=TRUE]
-# colnames(seurat_obj.data) <- read_tsv("~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv", col_names=FALSE)[, 1, drop=TRUE]
+# seurat_obj.data <- readMM("${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/matrix.mtx")
+# rownames(seurat_obj.data) <- read_tsv("${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/features.tsv", col_names=FALSE)[, 1, drop=TRUE]
+# colnames(seurat_obj.data) <- read_tsv("${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv", col_names=FALSE)[, 1, drop=TRUE]
 
 # or:
-# seurat_obj.data <- ReadMtx(mtx ="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/matrix.mtx", cells="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv", features="~/scHAMR/STARsolo_results/Solo.out/Gene/filtered/features.tsv")
+# seurat_obj.data <- ReadMtx(mtx ="${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/matrix.mtx", cells="${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/barcodes.tsv", features="${SC_HAMR_DIR}/STARsolo_results/Solo.out/Gene/filtered/features.tsv")
 
 # setting up a Seurat object and displaying it
 seurat_obj <- CreateSeuratObject(counts = seurat_obj.data, project = "seurat_obj", min.cells = 3, min.features = 200)
@@ -803,12 +928,12 @@ Quality Control and cells selection:
 seurat_obj[["percent.mt"]] <- PercentageFeatureSet(seurat_obj, pattern = "^MT-")
 
 # Violin plot for QC metrics
-png("~/scHAMR/clustering/qc_check/pre-qc_vlnplot.png", width = 800, height = 600, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/qc_check/pre-qc_vlnplot.png", width = 800, height = 600, pointsize = 12)
 VlnPlot(seurat_obj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 dev.off()
 
 # scatter plots for features
-png("~/scHAMR/clustering/qc_check/pre-qc_scatter.png", width = 800, height = 400, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/qc_check/pre-qc_scatter.png", width = 800, height = 400, pointsize = 12)
 plot1 <- FeatureScatter(seurat_obj, feature1 = "nCount_RNA", feature2 = "percent.mt")
 plot2 <- FeatureScatter(seurat_obj, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
 plot1 + plot2
@@ -818,11 +943,11 @@ dev.off()
 seurat_obj <- subset(seurat_obj, subset= nFeature_RNA>200 & nFeature_RNA<2500 & percent.mt<5)
 
 # rechecking Q
-png("~/scHAMR/clustering/qc_check/post-qc_vlnplot.png", width = 800, height = 600, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/qc_check/post-qc_vlnplot.png", width = 800, height = 600, pointsize = 12)
 VlnPlot(seurat_obj, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 dev.off()
 		
-png("~/scHAMR/clustering/qc_check/post-qc_scatter.png", width=800, height=400, pointsize= 12)
+png("${SC_HAMR_DIR}/clustering/qc_check/post-qc_scatter.png", width=800, height=400, pointsize= 12)
 plot1 <- FeatureScatter(seurat_obj, feature1 = "nCount_RNA", feature2 = "percent.mt")
 plot2 <- FeatureScatter(seurat_obj, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
 plot1 + plot2
@@ -847,7 +972,7 @@ seurat_obj <- FindVariableFeatures(seurat_obj, selection.method = "vst", nfeatur
 # these are the top 10 of them to show in the plot below
 top10 <- head(VariableFeatures(seurat_obj), 10)
 # plot the variable features
-png("~/scHAMR/clustering/features_selection/variable_features.png", width = 800, height = 400, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/features_selection/variable_features.png", width = 800, height = 400, pointsize = 12)
 plot1 <- VariableFeaturePlot(seurat_obj)
 plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
 plot1 + plot2
@@ -872,13 +997,13 @@ seurat_obj <- RunPCA(seurat_obj, features = VariableFeatures(object = seurat_obj
 print(seurat_obj[["pca"]], dims = 1:5, nfeatures = 5) 
 
 # visualizing PCA results in VizDimReduction(), DimPlot(), and DimHeatmap()
-png("~/scHAMR/clustering/PCA/VizDimLoadings.png", width = 800, height = 400, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/PCA/VizDimLoadings.png", width = 800, height = 400, pointsize = 12)
 VizDimLoadings(seurat_obj, dims = 1:2, reduction = "pca")
 dev.off()
-png("~/scHAMR/clustering/PCA/DimPlot.png", width = 800, height = 600, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/PCA/DimPlot.png", width = 800, height = 600, pointsize = 12)
 DimPlot(seurat_obj, reduction = "pca")
 dev.off()
-png("~/scHAMR/clustering/PCA/DimHeatmap.png", width = 1200, height = 1200, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/PCA/DimHeatmap.png", width = 1200, height = 1200, pointsize = 12)
 DimHeatmap(seurat_obj, dims = 1:12, cells = 500, balanced = TRUE)
 dev.off()
 
@@ -887,10 +1012,10 @@ dev.off()
 seurat_obj <- JackStraw(seurat_obj, num.replicate = 100, dims = 50)
 seurat_obj <- ScoreJackStraw(seurat_obj, dims = 1:50)
 # Visualizing the distribution of p-values for each PC with uniform distribution (the dashed line). Elbow plot can be used as an alternative.
-png("~/scHAMR/clustering/PCA/JackStrawPlot.png", width = 800, height = 400, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/PCA/JackStrawPlot.png", width = 800, height = 400, pointsize = 12)
 JackStrawPlot(seurat_obj, dims = 1:50)
 dev.off()
-png("~/scHAMR/clustering/PCA/ElbowPlot.png", width = 800, height = 600, pointsize = 12)
+png("${SC_HAMR_DIR}/clustering/PCA/ElbowPlot.png", width = 800, height = 600, pointsize = 12)
 ElbowPlot(seurat_obj)
 dev.off()
 ```
@@ -917,10 +1042,10 @@ head(Idents(Mido), 20)
 ```R
 # Non-linear dimentionality reduction (UMAP) to visualize and explore the data
 Mido <- RunUMAP(Mido, dims = 1:50)
-png("~/scHAMR/Seurat/clusters/umap.png", width = 1200, height = 1200, pointsize = 18)
+png("${SC_HAMR_DIR}/Seurat/clusters/umap.png", width = 1200, height = 1200, pointsize = 18)
 DimPlot(Mido, reduction = "umap", label=TRUE)
 dev.off()
-pdf("~/scHAMR/Seurat/clusters/umap.pdf")
+pdf("${SC_HAMR_DIR}/Seurat/clusters/umap.pdf")
 DimPlot(Mido, reduction = "umap", label=TRUE)
 dev.off()
 ```
@@ -930,13 +1055,13 @@ dev.off()
 ```R
 CBs_Clusters_dataframe <-FetchData(Mido, vars = 'ident')
 # save it as 
-write.csv(CBs_Clusters_dataframe, "~/scHAMR/Seurat/CBs_Clusters_dataframe.csv")
+write.csv(CBs_Clusters_dataframe, "${SC_HAMR_DIR}/Seurat/CBs_Clusters_dataframe.csv")
 
 # Save progress to retrieve it if needed for other downstream analysis as ones not included hear
-saveRDS(Mido, file = "~/scHAMR/Seurat/Mido_Seurat.rds")
+saveRDS(Mido, file = "${SC_HAMR_DIR}/Seurat/Mido_Seurat.rds")
 
 # to read it, type:
-# Mido <- readRDS(file = "~/scHAMR/Seurat/Mido_Seurat.rds")
+# Mido <- readRDS(file = "${SC_HAMR_DIR}/Seurat/Mido_Seurat.rds")
 ```
 
 **10. (Optional) Gene Markers and Cell Typing Analysis and Visualization**
@@ -952,7 +1077,7 @@ Mido.markers <- FindAllMarkers(Mido, only.pos = TRUE, min.pct = 0.25, logfc.thre
 # head(cluster2.markers, n = 5)
 
 # visualization example:
-# pdf("~/scHAMR/Seurat/biomarkers/umap.pdf")
+# pdf("${SC_HAMR_DIR}/Seurat/biomarkers/umap.pdf")
 # FeaturePlot(Mido, features = c("<input Gene here>"))
 # dev.off()
 ```
@@ -975,13 +1100,13 @@ mkdir -p CBs_Clusters
 cd CBs_Clusters
 
 # copy the dataframe in a new directory for further analysis
-cp ~/scHAMR/clustering/CBs_Clusters_dataframe.csv ~/scHAMR/CBs_Clusters
+cp ${SC_HAMR_DIR}/clustering/CBs_Clusters_dataframe.csv ${SC_HAMR_DIR}/CBs_Clusters
 
 # remove the unneeded header (X--idents) that can be problematic.
-sed -i 1d ~/scHAMR/CBs_Clusters/CBs_Clusters_dataframe.csv
+sed -i 1d ${SC_HAMR_DIR}/CBs_Clusters/CBs_Clusters_dataframe.csv
 
 # divide cell barcodes list in first column by second column (clusters ID) to separate files:
-awk -F"," '{ gsub("\"","",$2); print $1 "," $2 > ($2 ".csv") }' ~/scHAMR/CBs_Clusters/CBs_Clusters_dataframe.csv
+awk -F"," '{ gsub("\"","",$2); print $1 "," $2 > ($2 ".csv") }' ${SC_HAMR_DIR}/CBs_Clusters/CBs_Clusters_dataframe.csv
 
 # we do not need the copy anymore so delete.
 rm CBs_Clusters_dataframe.csv
@@ -990,24 +1115,28 @@ rm CBs_Clusters_dataframe.csv
 mkdir -p CBs
 
 for i in $(ls *.csv)
-do cut -d, -f1  $i > ~/scHAMR/CBs_Clusters/CBs/$i
+do cut -d, -f1  $i > ${SC_HAMR_DIR}/CBs_Clusters/CBs/$i
 done
 
-cd ~/scHAMR
+cd ${SC_HAMR_DIR}
 ```
 
 Using the Subset-Bam tool to split the BAM file into a BAM file per cluster using the corresponding cell barcodes for each cluster.
 
 ```bash
 mkdir -p clusters_BAM 
-cd ~/scHAMR/CBs_Clusters/CBs/
+cd ${SC_HAMR_DIR}/CBs_Clusters/CBs/
 
 # running subset-bam in a loop over all clusters
 for i in $(ls *.csv)
-do subset-bam --bam ~/scHAMR/STARsolo_results/Aligned.sortedByCoord.out.bam --cell-barcodes $i --bam-tag CB:Z --out-bam ~/scHAMR/clusters_BAM/$(basename $i .csv) --log-level debug --cores 2
+do subset-bam --bam ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam\
+--cell-barcodes $i\
+--bam-tag CB:Z\
+--out-bam ${SC_HAMR_DIR}/clusters_BAM/$(basename $i .csv)\
+--log-level debug --cores 2
 done
 
-cd ~/scHAMR
+cd ${SC_HAMR_DIR}
 ```
 
 </details>
@@ -1025,7 +1154,7 @@ mkdir -p HAMR_clusters
 cd clusters_BAM
 # creating a for loop that runs over all BAM files in the directory clusters_BAM
 for i in $(ls *)
-do python2 ~/HAMR/HAMR-1.2/hamr.py $i  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ~/scHAMR/HAMR_clusters  HAMR_$(basename $i)  30 10 0.05 H4 0.01 0.05 0.05
+do python2 ~/HAMR/HAMR-1.2/hamr.py $i  ${SC_HAMR_DIR}/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ${SC_HAMR_DIR}/HAMR_clusters  HAMR_$(basename $i)  30 10 0.05 H4 0.01 0.05 0.05
 done
 ```
 
@@ -1037,7 +1166,7 @@ cd splitted_bams
 
 # creating a for loop that runs over all BAM files in the directory clusters_BAM
 for i in $(ls *)
-do python2 ~/HAMR/HAMR-1.2/hamr.py $i  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ~/scHAMR/HAMR_cells  HAMR_$(basename $i .pdf)  30 10 0.05 H4 0.01 0.05 0.05
+do python2 ~/HAMR/HAMR-1.2/hamr.py $i  ${SC_HAMR_DIR}/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ${SC_HAMR_DIR}/HAMR_cells  HAMR_$(basename $i .pdf)  30 10 0.05 H4 0.01 0.05 0.05
 done
 ```
 
@@ -1045,26 +1174,93 @@ done
 
 ```bash
 mkdir -p HAMR_Bulk
-python2 ~/HAMR/HAMR-1.2/hamr.py ~/scHAMR/STARsolo_results/Aligned.sortedByCoord.out.bam  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ~/scHAMR/HAMR_Bulk HAMR_results 30 10 0.05 H4 0.01 0.05 0.05
+python2 ~/HAMR/HAMR-1.2/hamr.py ${SC_HAMR_DIR}/STARsolo_results/Aligned.sortedByCoord.out.bam  ${SC_HAMR_DIR}/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ${SC_HAMR_DIR}/HAMR_Bulk HAMR_results 30 10 0.05 H4 0.01 0.05 0.05
 
 # for filtered reads according to the true cells detected by STARsolo
-python2 ~/HAMR/HAMR-1.2/hamr.py ~/scHAMR/filtered_bam/filtered_bam  ~/scHAMR/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ~/scHAMR/HAMR_Bulk HAMR_results 30 10 0.05 H4 0.01 0.05 0.05
+python2 ~/HAMR/HAMR-1.2/hamr.py ${SC_HAMR_DIR}/filtered_bam/filtered_bam  ${SC_HAMR_DIR}/reference_genome/<reference genome fasta file.fa>  ~/HAMR/HAMR-1.2/models/euk_trna_mods.Rdata ${SC_HAMR_DIR}/HAMR_Bulk HAMR_results 30 10 0.05 H4 0.01 0.05 0.05
 ```
 </details>
 
 ## 6. Example Runs
 <details>
 
-- Instructions and commands for example analyses on specific cell types.
+The scHAMR pipeline was applied to different human and non-human datasets for its optimization and validation.
+
+### Drosophila Escort Cells
 <details>
 
-### Drosophila Escort Cells 
+This dataset, with GEO accession number GSE141701, comprises single-cell RNA sequencing (scRNA-seq) data of escort cells (ECs) from the ovaries of 5-7 days old Drosophila melanogaster adults. Shi et al. (2021) obtained this data using the 10X Genomics Chromium V.2 protocol. They used it to reveal the heterogeneity of escort cells, offering new insights into their roles in germline cyst differentiation.
+
+Find the scripts to run the scHAMR pipeline on this dataset and the scHAMR pipeline results here:
+
+```graph
+
+example-runs/                              # Directory for example scHAMR runs
+│
+└── drosophila-escorts/                    # Drosophila escorts dataset example
+    │
+    ├── scripts/                           # Scripts to run the scHAMR pipeline on this dataset
+    │   ├── startingup-loadingdata.sh      # Starting up and loading dataset (bash)
+    │   ├── reference-genome.sh            # Building the genome index (bash)
+    │   ├── alignment-quantification.sh    # Alignment and Quantification with STARsolo (bash)
+    │   ├── clustering.ipynb               # Jupyter notebook for clustering using Scanpy (python)
+    │   ├── clusters-bam.sh                # Generating a bam for each cluster (bash)
+    │   ├── running-hamr.sh                # Running HAMR
+    │   ├── nohup.out                      # Logs for running the bash scripts
+    │   └── README.md                      # Instructions for running the scripts
+    │
+    └── scHAMR/                            # scHAMR pipeline results
+        ├── SRR_data/                      # Dataset in SRA format
+        ├── FASTQ_data/                    # Dataset in FASTQ format
+        ├── reference_genome/              # Drosophila reference genome
+        ├── CB_whitelist/                  # 10X Genomics cell barcodes whitelist
+        ├── STARsolo_results/              # Alignment and quantification results
+        ├── clustering                     # Clustering and annotations results
+        ├── CBs_Clusters                   # Cell barcodes for each cluster
+        ├── clusters_BAM                   # A BAM file for each cluster
+        └── HAMR_clusters                  # HAMR results for each cluster
+
+```
 
 </details>
 
-<details>
 
 ### Human Pancreatic Islets
+<details>
+
+This dataset, with GEO accession number of  GSE198623, is single-cell RNA sequencing (scRNA-seq) data for human pancreatic islets. It is a collection of 5 samples of high-quality single-cell RNA-seq (scRNA-seq) data for the pancreatic islets from 5 healthy adult human donors. It was collected and deposited by Tritschler et al. (2022). Pancreatic islets, also called islets of Langerhans, contain several types of cells, including beta cells that make the hormone insulin. Emerging evidence suggests that islet cells are functionally heterogeneous to allow a fine-tuned and efficient endocrine response to physiological changes.
+
+Find the scripts to run the scHAMR pipeline on this dataset and the scHAMR pipeline results here:
+
+```graph
+
+example-runs/                              # Directory for example scHAMR runs
+│
+└── human-islets/                          # Human islets dataset example
+    │
+    ├── scripts/                           # Scripts to run the scHAMR pipeline on this dataset
+    │   ├── startingup-loadingdata.sh      # Starting up and loading dataset (bash)
+    │   ├── reference-genome.sh            # Building the genome index (bash)
+    │   ├── alignment-quantification.sh    # Alignment and Quantification with STARsolo (bash)
+    │   ├── clustering.ipynb               # Jupyter notebook for clustering using Scanpy (python)
+    │   ├── clusters-bam.sh                # Generating a bam for each cluster (bash)
+    │   ├── running-hamr.sh                # Running HAMR
+    │   ├── nohup.out                      # Logs for running the bash scripts
+    │   └── README.md                      # Instructions for running the scripts
+    │
+    └── scHAMR/                            # scHAMR pipeline results
+        ├── SRR_data/                      # Dataset in SRA format
+        ├── FASTQ_data/                    # Dataset in FASTQ format
+        ├── reference_genome/              # Drosophila reference genome
+        ├── CB_whitelist/                  # 10X Genomics cell barcodes whitelist
+        ├── STARsolo_results/              # Alignment and quantification results
+        ├── clustering                     # Clustering and annotations results
+        ├── CBs_Clusters                   # Cell barcodes for each cluster
+        ├── clusters_BAM                   # A BAM file for each cluster
+        └── HAMR_clusters                  # HAMR results for each cluster
+
+```
+
 
 </details>
 
